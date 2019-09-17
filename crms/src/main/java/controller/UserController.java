@@ -1,0 +1,93 @@
+package controller;
+
+import java.util.List;
+
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import entity.User;
+import entity.Workgroup;
+import service.UserService;
+import service.WorkgroupService;
+import utils.ReturnInfo;
+
+@Controller
+@RequestMapping("User")
+public class UserController {
+
+	@Autowired
+	UserService userService;
+	@Autowired
+	WorkgroupService groupService;
+	
+	@RequestMapping("login")
+	public @ResponseBody String login(User u) {
+		try {
+		SecurityUtils.getSubject().login(new UsernamePasswordToken(u.getTel(), u.getPass()));
+		}catch (Exception e) {
+			return "false";
+		}
+		return "true";
+		
+	}
+	
+	@RequestMapping("index")
+	public @ResponseBody ReturnInfo index(String txt,Integer page,Integer limit) {
+		System.out.println(123);
+		ReturnInfo info = new ReturnInfo();
+		String where="";
+		if(txt!=null) where=" where c_user.name like '%"+txt+"%'";
+		String lim = info.getLimit(page, limit);
+		info.setCount(userService.selectCount(where));
+		info.setList(userService.getAll(where,lim));
+		return info;
+	}
+	
+	
+	@RequestMapping("getSexs")
+	public @ResponseBody String[] getSexs() {
+		return User.sexs;
+	}
+	@RequestMapping("getStatus")
+	public @ResponseBody String[] getStatus() {
+		return User.status;
+	}
+	@RequestMapping("getPowers")
+	public @ResponseBody String[] getPowers() {
+		return User.powers;
+	}
+	
+	@RequestMapping("getGroups")
+	public @ResponseBody List<Workgroup> getGroups() {
+		return groupService.getAll(null,null);
+	}
+	
+	
+	
+	@RequestMapping("delete")
+	public @ResponseBody String delete(int id) {
+		userService.delete(id);
+		return "{\"status\":1}";
+	}
+	
+	
+	@RequestMapping("insert")
+	public @ResponseBody String insert(User u) {
+		userService.insert(u);
+		return "{\"status\":1}";
+	}
+	
+	@RequestMapping("edit")
+	public @ResponseBody User edit(int id) {
+		return userService.selectById(id);
+	}
+	@RequestMapping("update")
+	public @ResponseBody String update(User u) {
+		userService.update(u);
+		return "{\"status\":1}";
+	}
+}
