@@ -11,7 +11,7 @@
 <title></title>
 <style type="text/css">
 .input {
-	font-size: 16px; width : 200px;
+	font-size: 16px; width : 230px;
 	height: 30px;
 	margin-top: -10px;
 	margin-right: 10px;
@@ -39,7 +39,6 @@
 </script>
 
 	<script>
-	
 		layui.use('table', function() {
 			var table = layui.table;
 
@@ -47,7 +46,7 @@
 			table.render({
 				elem : '#demo',
 				height : 462,
-				url : '../Customer/index' //数据接口
+				url : '../Product/index' //数据接口
 				,
 				toolbar : '#toolbarDemo',
 				page : true //开启分页
@@ -60,26 +59,18 @@
 					sort : true,
 					fixed : 'right'
 				}, {
-					field : 'cusname',
-					title : '客户名称',
-					width : 150
-				},{
-					field : 'custel',
-					title : '联系方式',
-					width : 150
-				},{
-					field : 'cussexname',
-					title : '性别',
-					width : 150
-				}, {
-					field : 'cusaddress',
-					title : '客户地址',
-					width : 150
-				}, {
-					field : 'cuslevelname',
-					title : '客户等级',
+					field : 'name',
+					title : '产品名',
 					width : 100
-				}, {
+				},{
+					field : 'price',
+					title : '价格',
+					width : 150
+				},{
+					field : 'info',
+					title : '描述',
+					width : 200
+				},{
 					fixed : 'right',
 					title : '操作',
 					toolbar : '#barDemo',
@@ -114,7 +105,7 @@
 								}, "json");
 					});
 				}else{
-					openFrame('../Customer/edit.jsp?id='+data.id,'编辑',['400px', '70%']);
+					openFrame('../Product/edit.jsp?id='+data.id,'编辑',['350px', '65%']);
 				}
 			});
 
@@ -123,7 +114,7 @@
 					var txt = $(event.target).prev().find("input").val();
 					reload('demo',{txt : txt});
 				} else {
-					openFrame("../Customer/edit.jsp",'新增',['400px', '70%']);
+					openFrame("../Product/edit.jsp",'新增',['350px', '65%']);
 				}
 			});
 
