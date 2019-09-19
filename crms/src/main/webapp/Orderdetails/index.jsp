@@ -46,7 +46,7 @@
 			table.render({
 				elem : '#demo',
 				height : 462,
-				url : '../Product/index' //数据接口
+				url : '../Orderdetails/index' //数据接口
 				,
 				toolbar : '#toolbarDemo',
 				page : true //开启分页
@@ -59,17 +59,25 @@
 					sort : true,
 					fixed : 'right'
 				}, {
-					field : 'name',
-					title : '产品名',
+					field : 'orderid',
+					title : '合同id',
 					width : 100
 				},{
-					field : 'price',
-					title : '价格',
+					field : 'productname',
+					title : '产品名称',
 					width : 150
 				},{
-					field : 'info',
-					title : '描述',
-					width : 200
+					field : 'amount',
+					title : '产品数量',
+					width : 100
+				},{
+					field : 'disc',
+					title : '折扣',
+					width : 100
+				},{
+					field : 'comments',
+					title : '备注',
+					width : 100
 				},{
 					fixed : 'right',
 					title : '操作',
@@ -105,7 +113,7 @@
 								}, "json");
 					});
 				}else{
-					openFrame('../Product/edit.jsp?id='+data.id,'编辑',['350px', '65%']);
+					openFrame('../Orderdetails/edit.jsp?id='+data.id,'编辑',['350px', '65%']);
 				}
 			});
 
@@ -114,7 +122,7 @@
 					var txt = $(event.target).prev().find("input").val();
 					reload('demo',{txt : txt});
 				} else {
-					openFrame("../Product/edit.jsp",'新增',['350px', '65%']);
+					openFrame("../Orderdetails/edit.jsp",'新增',['350px', '65%']);
 				}
 			});
 

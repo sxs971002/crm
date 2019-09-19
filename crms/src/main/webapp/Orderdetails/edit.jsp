@@ -18,16 +18,31 @@
 </style>
 
 <c:if test="${param.id==null}">
-<form class="layui-form" lay-filter="myform" action="../Product/insert">
+<form class="layui-form" lay-filter="myform" action="../Orderdetails/insert">
 </c:if>
 <c:if test="${param.id!=null}">
-<form class="layui-form" lay-filter="myform" action="../Product/update">
+<form class="layui-form" lay-filter="myform" action="../Orderdetails/update">
 <input type="hidden" name="id" >
 </c:if>
   <div class="layui-form-item">
-    <label class="layui-form-label">产品名</label>
+    <label class="layui-form-label">合同ID</label>
     <div class="layui-input-block">
-      <input type="text" name="name"  autocomplete="off" placeholder="请输入产品名" class="layui-input">
+      <input type="text" name="orderid"  autocomplete="off" placeholder="请输入合同ID" class="layui-input">
+    </div>
+  </div>
+  
+  <div class="layui-form-item">
+    <label class="layui-form-label">产品名称</label>
+    <div class="layui-input-block">
+      <select name="productid" >
+      </select>
+    </div>
+  </div>
+  
+  <div class="layui-form-item">
+    <label class="layui-form-label">数量</label>
+    <div class="layui-input-block">
+      <input type="text" name="amount"  autocomplete="off" placeholder="请输入数量" class="layui-input">
     </div>
   </div>
   
@@ -39,9 +54,16 @@
   </div>
   
   <div class="layui-form-item">
-    <label class="layui-form-label">产品描述</label>
+    <label class="layui-form-label">折扣</label>
     <div class="layui-input-block">
-      <input type="text" name="info"  autocomplete="off" placeholder="请输入产品描述" class="layui-input">
+      <input type="text" name="disc"  autocomplete="off" placeholder="请输入折扣" class="layui-input">
+    </div>
+  </div>
+  
+  <div class="layui-form-item">
+    <label class="layui-form-label">备注</label>
+    <div class="layui-input-block">
+      <input type="text" name="comments"  autocomplete="off" placeholder="请输入备注" class="layui-input">
     </div>
   </div>
   
@@ -71,14 +93,27 @@ var id="${param.id}";
 function init(){
 	$.post("edit",{id:id}, function(json) {
 		render('myform', json);
-		
+		getlist("../Orderdetails/getProducts",{},"[name=productid]",json.productid);
 	},"json");
 	
 }
 if(id.length>0){
 	init();
 }else{
-	
+	getlist("../Orderdetails/getProducts",{},"[name=productid]",0);
+}
+
+function getlist(url,data,selector,def_id){
+		$.post(url,data, function(json) {
+			var s=$(selector).empty();
+			s.append($("<option value=''></option>"))
+			for(var i=0;i<json.length;i++){
+				var ss="";
+				if(json[i].id==def_id) ss="selected='selected'";
+				s.append($("<option value='"+json[i].id+"' "+ss+" >"+json[i].name+"</option>"))
+			}
+			layui.form.render('select');
+		},"json");
 }
 
 

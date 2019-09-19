@@ -11,7 +11,7 @@
 <title></title>
 <style type="text/css">
 .input {
-	font-size: 16px; width : 230px;
+	font-size: 16px; width : 200px;
 	height: 30px;
 	margin-top: -10px;
 	margin-right: 10px;
@@ -39,6 +39,7 @@
 </script>
 
 	<script>
+	
 		layui.use('table', function() {
 			var table = layui.table;
 
@@ -46,7 +47,7 @@
 			table.render({
 				elem : '#demo',
 				height : 462,
-				url : '../Workgroup/index' //数据接口
+				url : '../Revisit/index' //数据接口
 				,
 				toolbar : '#toolbarDemo',
 				page : true //开启分页
@@ -55,14 +56,49 @@
 				{
 					field : 'id',
 					title : 'ID',
-					width : 80,
+					width : 50,
 					sort : true,
-					fixed : 'right'
 				}, {
-					field : 'name',
-					title : '工作组名',
-					width : 150
+					field : 'clientname',
+					title : '客户名称',
+					width : 80
 				},{
+					field : 'linkstatuname',
+					title : '电话状态',
+					width : 80
+				},{
+					field : 'clientstatuname',
+					title : '客户状态',
+					width : 80
+				},{
+					field : 'purposestatuname',
+					title : '意向状态',
+					width : 80
+				},{
+					field : 'assessstatuname',
+					title : '评估状态',
+					width : 80
+				},{
+					field : 'execstatuname',
+					title : '执行状态',
+					width : 80
+				},{
+					field : 'askinfo',
+					title : '询问状况',
+					width : 80
+				}, {
+					field : 'followinfo',
+					title : '跟踪状况',
+					width : 80
+				}, {
+					field : 'probleminfo',
+					title : '问题状况',
+					width : 80
+				}, {
+					field : 'comments',
+					title : '备注',
+					width : 80
+				}, {
 					fixed : 'right',
 					title : '操作',
 					toolbar : '#barDemo',
@@ -97,7 +133,7 @@
 								}, "json");
 					});
 				}else{
-					openFrame('../Workgroup/edit.jsp?id='+data.id,'编辑',['400px', '30%']);
+					openFrame('../Revisit/edit.jsp?id='+data.id,'编辑',['400px', '70%']);
 				}
 			});
 
@@ -106,7 +142,7 @@
 					var txt = $(event.target).prev().find("input").val();
 					reload('demo',{txt : txt});
 				} else {
-					openFrame("../Workgroup/edit.jsp",'新增',['400px', '30%']);
+					openFrame("../Revisit/edit.jsp",'新增',['400px', '70%']);
 				}
 			});
 

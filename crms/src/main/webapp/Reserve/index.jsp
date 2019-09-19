@@ -11,7 +11,7 @@
 <title></title>
 <style type="text/css">
 .input {
-	font-size: 16px; width : 230px;
+	font-size: 16px; width : 200px;
 	height: 30px;
 	margin-top: -10px;
 	margin-right: 10px;
@@ -39,6 +39,7 @@
 </script>
 
 	<script>
+	
 		layui.use('table', function() {
 			var table = layui.table;
 
@@ -46,7 +47,7 @@
 			table.render({
 				elem : '#demo',
 				height : 462,
-				url : '../Workgroup/index' //数据接口
+				url : '../Reserve/index' //数据接口
 				,
 				toolbar : '#toolbarDemo',
 				page : true //开启分页
@@ -55,14 +56,49 @@
 				{
 					field : 'id',
 					title : 'ID',
-					width : 80,
+					width : 50,
 					sort : true,
-					fixed : 'right'
-				}, {
-					field : 'name',
-					title : '工作组名',
+				},{
+					field : 'revisitid',
+					title : '回访表id',
+					width : 80
+				},{
+					field : 'clientname',
+					title : '客户名称',
+					width : 80
+				},{
+					field : 'createdate',
+					title : '创建时间',
 					width : 150
 				},{
+					field : 'username',
+					title : '操作人员',
+					width : 150
+				},{
+					field : 'execusername',
+					title : '处理人名称',
+					width : 150
+				},{
+					field : 'date',
+					title : '日期',
+					width : 150
+				},{
+					field : 'typename',
+					title : '类型',
+					width : 80
+				},{
+					field : 'statuname',
+					title : '状态',
+					width : 80
+				},{
+					field : 'execstatuname',
+					title : '处理状态',
+					width : 80
+				},{
+					field : 'result',
+					title : '结果',
+					width : 80
+				}, {
 					fixed : 'right',
 					title : '操作',
 					toolbar : '#barDemo',
@@ -97,7 +133,7 @@
 								}, "json");
 					});
 				}else{
-					openFrame('../Workgroup/edit.jsp?id='+data.id,'编辑',['400px', '30%']);
+					openFrame('../Reserve/edit.jsp?id='+data.id,'编辑',['400px', '70%']);
 				}
 			});
 
@@ -106,7 +142,7 @@
 					var txt = $(event.target).prev().find("input").val();
 					reload('demo',{txt : txt});
 				} else {
-					openFrame("../Workgroup/edit.jsp",'新增',['400px', '30%']);
+					openFrame("../Reserve/edit.jsp",'新增',['400px', '70%']);
 				}
 			});
 
