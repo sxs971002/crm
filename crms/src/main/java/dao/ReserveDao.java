@@ -20,7 +20,7 @@ public interface ReserveDao {
 	@Select("select * from c_reserve")
 	public List<Reserve> selectAll();
 	
-	@Insert("insert into c_reserve(revisitid,clientid,createdate,date,userid,execuserid,type,statu,execstatu,result) values(#{revisitid},#{clientid},#{sysdate()},#{date},#{userid},#{execuserid},#{type},#{statu},#{execstatu},#{result})")
+	@Insert("insert into c_reserve(revisitid,clientid,createdate,date,userid,execuserid,type,statu,execstatu,result) values(#{revisitid},#{clientid},#{createdate},#{date},#{userid},#{execuserid},#{type},#{statu},#{execstatu},#{result})")
 	public int insert(Reserve o);
 
 	@Delete("delete from c_reserve where id=#{id}")

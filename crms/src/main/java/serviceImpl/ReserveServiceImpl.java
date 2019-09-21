@@ -1,5 +1,7 @@
 package serviceImpl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,10 @@ public class ReserveServiceImpl implements ReserveService{
 	}
 	public int insert(Reserve o) {
 		// TODO Auto-generated method stub
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String dateStr = sdf.format(date);
+		o.setCreatedate(dateStr);
 		return reserveDao.insert(o);
 	}
 	public Reserve getById(int id) {
