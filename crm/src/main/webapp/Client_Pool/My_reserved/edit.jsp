@@ -5,11 +5,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="../X-admin/lib/layui/css/layui.css" rel="stylesheet">
-<script type="text/javascript" src="../X-admin/lib/layui/layui.all.js"></script>
-<script src="../X-admin/js/jquery-2.2.4.min.js"></script>
-<script type="text/javascript" src="../X-admin/js/my.js"></script>
-<script type="text/javascript" src="../X-admin/js/tableSelect.js"></script>
+<link href="/crm/X-admin/lib/layui/css/layui.css" rel="stylesheet">
+<script type="text/javascript" src="/crm/X-admin/lib/layui/layui.all.js"></script>
+<script src="/crm/X-admin/js/jquery-2.2.4.min.js"></script>
+<script type="text/javascript" src="/crm/X-admin/js/my.js"></script>
+<script type="text/javascript" src="/crm/X-admin/js/tableSelect.js"></script>
 <title></title>
 </head>
 <body>
@@ -21,10 +21,10 @@
 </style>
 
 <c:if test="${param.id==null}">
-<form class="layui-form" lay-filter="myform" action="../Client/insert">
+<form class="layui-form" lay-filter="myform" action="/crm/Client/insert">
 </c:if>
 <c:if test="${param.id!=null}">
-<form class="layui-form" lay-filter="myform" action="../Client/update">
+<form class="layui-form" lay-filter="myform" action="/crm/Client/update">
 <input type="hidden" name="id" >
 </c:if>
   <div class="layui-form-item">
@@ -137,7 +137,7 @@
     <label class="layui-form-label">处理人</label>
     <div class="layui-input-block">
       	<input type="hidden" name="userids">
-		<input type="text" name="usernames" readonly="readonly" autocomplete="off" placeholder="请输入" class="layui-input" id="demo"> 
+		<input type="text" name="usernames" readonly="readonly" autocomplete="off" placeholder="请选择处理人" class="layui-input" id="demo"> 
     </div>
   </div>
   
@@ -210,7 +210,7 @@ tableSelect.render({
 	searchKey: 'txt',	//搜索输入框的name值 默认keyword
 	searchPlaceholder: '搜索',	//搜索输入框的提示文字 默认关键词搜索
 	table: {	//定义表格参数，与LAYUI的TABLE模块一致，只是无需再定义表格elem
-		url:'../User/index',
+		url:'/crm/User/index',
 		height:200,
 		cols: [[
 			{type: "checkbox"},
@@ -244,32 +244,32 @@ tableSelect.render({
 
 var id="${param.id}";
 function init(){
-	$.post("../Client/edit",{id:id}, function(json) {
+	$.post("/crm/Client/edit",{id:id}, function(json) {
 		render('myform', json);
-		getarray("../Client/getSexs",{},"[name=sex]",json.sex);
-		getarray("../Client/getLinkstatus",{},"[name=linkstatu]",json.linkstatu);
-		getarray("../Client/getClientstatus",{},"[name=clientstatu]",json.clientstatu);
-		getarray("../Client/getPurposestatus",{},"[name=purposestatu]",json.purposestatu);
-		getarray("../Client/getAssessstatus",{},"[name=assessstatu]",json.assessstatu);
-		getarray("../Client/getExecstatus",{},"[name=execstatu]",json.execstatu);
-		getarray("../Client/getStatus",{},"[name=statu]",json.statu);
-		getlist("../Client/getSrcs",{},"[name=srcid]",json.srcid);
-		getlist("../Client/getClienttypes",{},"[name=clienttypeid]",json.clienttypeid);
+		getarray("/crm/Client/getSexs",{},"[name=sex]",json.sex);
+		getarray("/crm/Client/getLinkstatus",{},"[name=linkstatu]",json.linkstatu);
+		getarray("/crm/Client/getClientstatus",{},"[name=clientstatu]",json.clientstatu);
+		getarray("/crm/Client/getPurposestatus",{},"[name=purposestatu]",json.purposestatu);
+		getarray("/crm/Client/getAssessstatus",{},"[name=assessstatu]",json.assessstatu);
+		getarray("/crm/Client/getExecstatus",{},"[name=execstatu]",json.execstatu);
+		getarray("/crm/Client/getStatus",{},"[name=statu]",json.statu);
+		getlist("/crm/Client/getSrcs",{},"[name=srcid]",json.srcid);
+		getlist("/crm/Client/getClienttypes",{},"[name=clienttypeid]",json.clienttypeid);
 	},"json");
 	
 }
 if(id.length>0){
 	init();
 }else{
-	getarray("../Client/getSexs",{},"[name=sex]",0);
-	getarray("../Client/getLinkstatus",{},"[name=linkstatu]",0);
-	getarray("../Client/getClientstatus",{},"[name=clientstatu]",0);
-	getarray("../Client/getPurposestatus",{},"[name=purposestatu]",0);
-	getarray("../Client/getAssessstatus",{},"[name=assessstatu]",0);
-	getarray("../Client/getExecstatus",{},"[name=execstatu]",0);
-	getarray("../Client/getStatus",{},"[name=statu]",0);
-	getlist("../Client/getSrcs",{},"[name=srcid]",0);
-	getlist("../Client/getClienttypes",{},"[name=clienttypeid]",0);
+	getarray("/crm/Client/getSexs",{},"[name=sex]",0);
+	getarray("/crm/Client/getLinkstatus",{},"[name=linkstatu]",0);
+	getarray("/crm/Client/getClientstatus",{},"[name=clientstatu]",0);
+	getarray("/crm/Client/getPurposestatus",{},"[name=purposestatu]",0);
+	getarray("/crm/Client/getAssessstatus",{},"[name=assessstatu]",0);
+	getarray("/crm/Client/getExecstatus",{},"[name=execstatu]",0);
+	getarray("/crm/Client/getStatus",{},"[name=statu]",0);
+	getlist("/crm/Client/getSrcs",{},"[name=srcid]",0);
+	getlist("/crm/Client/getClienttypes",{},"[name=clienttypeid]",0);
 }
 
 function getlist(url,data,selector,def_id){

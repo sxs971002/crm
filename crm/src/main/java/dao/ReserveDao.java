@@ -21,7 +21,7 @@ public interface ReserveDao {
 	public List<Reserve> selectAll();
 	
 	@Insert("insert into c_reserve(revisitid,clientid,createdate,date,userid,execuserid,type,statu,execstatu,result) values(#{revisitid},#{clientid},#{createdate},#{date},#{userid},#{execuserid},#{type},#{statu},#{execstatu},#{result})")
-	public int insert(Reserve o);
+	public int insert(Reserve r);
 
 	@Delete("delete from c_reserve where id=#{id}")
 	public int delete(int id);
@@ -30,9 +30,12 @@ public interface ReserveDao {
 	public Reserve getById(int id);
 
 	@Update("update c_reserve set revisitid = #{revisitid},clientid = #{clientid},date = #{date},userid = #{userid},execuserid = #{execuserid},type = #{type},statu = #{statu},execstatu = #{execstatu},result = #{result} where id=#{id}")
-	public int update(Reserve o);
+	public int update(Reserve r);
 
 	@Select("select count(1) from ((c_reserve inner join c_client on c_reserve.clientid = c_client.id) inner join c_user u1 on c_reserve.userid = u1.id) inner join c_user u2 on c_reserve.execuserid = u2.id ${txt}")
 	public int selectCount(@Param("txt")String where);
+
+	@Select("select c_client.name clientname,u1.name username,u2.name execusername,c_reserve.* from ((c_reserve inner join c_client on c_reserve.clientid = c_client.id) inner join c_user u1 on c_reserve.userid = u1.id) inner join c_user u2 on c_reserve.execuserid = u2.id ${txt} ${lim}")
+	public List<Reserve> getMyreserved(@Param("txt")String where, @Param("lim")String limit);
 	
 }

@@ -19,6 +19,7 @@ public class Client {
 	
 	private int clienttypeid;
 	private String userids;
+	private String usernames;
 	private int createuserid;
 	private String createdate; 
 	private int srcid;
@@ -236,6 +237,12 @@ public class Client {
 
 	public void setComments(String comments) {
 		this.comments = comments;
+	}
+	public String getUsernames() {
+		return usernames;
+	}
+	public void setUsernames(String usernames) {
+		this.usernames = usernames;
 	}
 	
 	

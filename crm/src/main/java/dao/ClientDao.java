@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import entity.Client;
+import entity.Reserve;
 
 @Repository
 public interface ClientDao {
@@ -20,7 +21,7 @@ public interface ClientDao {
 	@Select("select * from c_client")
 	public List<Client> selectAll();
 	
-	@Insert("insert into c_client(name,sex,tel,qq,email,address,infos,linkstatu,clientstatu,purposestatu,assessstatu,execstatu,statu,clienttypeid,userids,createoperatorid,createdate,srcid,count,comments) values(#{name},#{sex},#{tel},#{qq},#{email},#{address},#{infos},#{linkstatu},#{clientstatu},#{purposestatu},#{assessstatu},#{execstatu},#{statu},#{clienttypeid},#{userids},#{createuserid},#{createdate},#{srcid},#{count},#{comments})")
+	@Insert("insert into c_client(name,sex,tel,qq,email,address,infos,linkstatu,clientstatu,purposestatu,assessstatu,execstatu,statu,clienttypeid,userids,usernames,createoperatorid,createdate,srcid,count,comments) values(#{name},#{sex},#{tel},#{qq},#{email},#{address},#{infos},#{linkstatu},#{clientstatu},#{purposestatu},#{assessstatu},#{execstatu},#{statu},#{clienttypeid},#{userids},#{createuserid},#{createdate},#{srcid},#{count},#{comments})")
 	public int insert(Client c);
 
 	@Delete("delete from c_client where id=#{id}")
@@ -29,10 +30,21 @@ public interface ClientDao {
 	@Select("select * from c_client where id=#{id}")
 	public Client getById(int id);
 
-	@Update("update c_client set name = #{name},sex = #{sex},tel = #{tel},qq = #{qq},email = #{email},address = #{address},infos = #{infos},linkstatu = #{linkstatu},clientstatu = #{clientstatu},purposestatu = #{purposestatu},assessstatu = #{assessstatu},execstatu = #{execstatu},statu = #{statu},clienttypeid = #{clienttypeid},userids = #{userids},createuserid = #{createuserid},createdate = #{createdate},srcid = #{srcid},count = #{count},comments = #{comments} where id=#{id}")
+	@Update("update c_client set name = #{name},sex = #{sex},tel = #{tel},qq = #{qq},email = #{email},address = #{address},infos = #{infos},linkstatu = #{linkstatu},clientstatu = #{clientstatu},purposestatu = #{purposestatu},assessstatu = #{assessstatu},execstatu = #{execstatu},statu = #{statu},clienttypeid = #{clienttypeid},userids = #{userids},usernames = #{usernames},createuserid = #{createuserid},createdate = #{createdate},srcid = #{srcid},count = #{count},comments = #{comments} where id=#{id}")
 	public int update(Client c);
 
 	@Select("select count(1) from (c_client inner join c_client_type on c_client.clienttypeid = c_client_type.id) inner join c_user on c_client.createuserid = c_user.id ${txt}")
 	public int selectCount(@Param("txt")String where);
+
+	//以下为业务
+	@Select("select c_client.*,c_client_type.name clienttypename,c_user.name createusername from (c_client inner join c_client_type on c_client.clienttypeid = c_client_type.id) inner join c_user on c_client.createuserid = c_user.id where c_client.userids = '' or c_client.userids is null ${txt} ${lim}")
+	public List<Client> getNoappoint(@Param("txt")String where, @Param("lim")String limit);
+	
+	@Select("select c_client.*,c_client_type.name clienttypename,c_user.name createusername from (c_client inner join c_client_type on c_client.clienttypeid = c_client_type.id) inner join c_user on c_client.createuserid = c_user.id ${txt} ${lim}")
+	public List<Client> getMyunexecuted(@Param("txt")String where, @Param("lim")String limit);
+
+	@Update("update c_client set userids = null,usernames = null where id = #{id}")
+	public int remove(Client u);
+
 	
 }

@@ -56,48 +56,48 @@
 				{
 					field : 'id',
 					title : 'ID',
-					width : 50,
+					width : 100,
 					sort : true,
 				}, {
 					field : 'clientname',
 					title : '客户名称',
-					width : 80
+					width : 150
 				},{
 					field : 'linkstatuname',
 					title : '电话状态',
-					width : 80
+					width : 150
 				},{
 					field : 'clientstatuname',
 					title : '客户状态',
-					width : 80
+					width : 150
 				},{
 					field : 'purposestatuname',
 					title : '意向状态',
-					width : 80
+					width : 150
 				},{
 					field : 'assessstatuname',
 					title : '评估状态',
-					width : 80
+					width : 150
 				},{
 					field : 'execstatuname',
 					title : '执行状态',
-					width : 80
+					width : 150
 				},{
 					field : 'askinfo',
 					title : '询问状况',
-					width : 80
+					width : 150
 				}, {
 					field : 'followinfo',
 					title : '跟踪状况',
-					width : 80
+					width : 150
 				}, {
 					field : 'probleminfo',
 					title : '问题状况',
-					width : 80
+					width : 150
 				}, {
 					field : 'comments',
 					title : '备注',
-					width : 80
+					width : 150
 				}, {
 					fixed : 'right',
 					title : '操作',

@@ -13,4 +13,7 @@ public interface ClientService {
 	public Client getById(int id);
 	public int update(Client c);
 	public int selectCount(String where);
+	public List<Client> getNoappoint(String where, String lim);
+	public List<Client> getMyunexecuted(String where, String lim);
+	public int remove(Client u);
 }

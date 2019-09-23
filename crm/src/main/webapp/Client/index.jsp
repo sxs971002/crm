@@ -56,12 +56,12 @@
 				{
 					field : 'id',
 					title : 'ID',
-					width : 50,
+					width : 100,
 					sort : true,
 				}, {
 					field : 'name',
 					title : '客户名称',
-					width : 80
+					width : 100
 				},{
 					field : 'sexname',
 					title : '性别',
@@ -69,7 +69,7 @@
 				},{
 					field : 'tel',
 					title : '联系方式',
-					width : 80
+					width : 150
 				},{
 					field : 'qq',
 					title : 'QQ',
@@ -89,51 +89,51 @@
 				},{
 					field : 'linkstatuname',
 					title : '电话状态',
-					width : 80
+					width : 150
 				},{
 					field : 'clientstatuname',
 					title : '客户状态',
-					width : 80
+					width : 150
 				},{
 					field : 'purposestatuname',
 					title : '意向状态',
-					width : 80
+					width : 150
 				},{
 					field : 'assessstatuname',
 					title : '评估状态',
-					width : 80
+					width : 150
 				},{
 					field : 'execstatuname',
 					title : '执行状态',
-					width : 80
+					width : 150
 				}, {
 					field : 'clienttypename',
 					title : '客户类型',
-					width : 80
+					width : 150
 				}, {
-					field : 'userids',
-					title : '联系人们',
-					width : 80
+					field : 'usernames',
+					title : '处理人们',
+					width : 150
 				}, {
 					field : 'createuserid',
 					title : '创建人',
-					width : 80
+					width : 150
 				}, {
 					field : 'createdate',
 					title : '创建时间',
-					width : 80
+					width : 150
 				}, {
 					field : 'srcid',
 					title : '客户来源',
-					width : 80
+					width : 150
 				}, {
 					field : 'count',
 					title : '回访次数',
-					width : 80
+					width : 150
 				}, {
 					field : 'comments',
 					title : '备注',
-					width : 80
+					width : 150
 				}, {
 					fixed : 'right',
 					title : '操作',

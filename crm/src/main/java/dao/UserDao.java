@@ -26,12 +26,15 @@ public interface UserDao {
 	public int delete(int id);
 
 	@Select("select * from c_user where id=#{id}")
-	public User getById(int id);
+	public User getById(Integer id);
 
 	@Update("update c_user set name = #{name},pass = #{pass},tel=#{tel},sex = #{sex},statu = #{statu},power = #{power},groupid = #{groupid} where id =#{id}")
 	public int update(User u);
 
 	@Select("select count(1) from c_user inner join c_workgroup on c_user.groupid = c_workgroup.id ${txt}")
 	public int selectCount(@Param("txt")String where);
+
+	@Select("select * from c_user where tel=#{tel}")
+	public User selectByTel(String tel);
 	
 }

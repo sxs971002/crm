@@ -1,5 +1,7 @@
 package serviceImpl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +28,13 @@ public class RevisitServiceImpl implements RevisitService{
 		// TODO Auto-generated method stub
 		return revisitDao.delete(id);
 	}
-	public int insert(Revisit c) {
+	public int insert(Revisit r) {
 		// TODO Auto-generated method stub
-		return revisitDao.insert(c);
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String dateStr = sdf.format(date);
+		r.setDate(dateStr);
+		return revisitDao.insert(r);
 	}
 	public Revisit getById(int id) {
 		// TODO Auto-generated method stub

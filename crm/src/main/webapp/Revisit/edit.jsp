@@ -32,12 +32,6 @@
     </div>
   </div>
   
-  <div class="layui-inline">
-      <label class="layui-form-label">创建时间</label>
-      <div class="layui-input-inline">
-        <input class="layui-input" id="test1" name="date" type="text" placeholder="yyyy-MM-dd" >
-      </div>
-    </div>
   
   <div class="layui-form-item">
     <label class="layui-form-label">电话状态</label>

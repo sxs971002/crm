@@ -48,4 +48,9 @@ public class ReserveServiceImpl implements ReserveService{
 		// TODO Auto-generated method stub
 		return reserveDao.selectCount(where);
 	}
+	//以下为业务
+	public List<Reserve> getMyreserved(String where, String lim) {
+		// TODO Auto-generated method stub
+		return reserveDao.getMyreserved(where,lim);
+	}
 }

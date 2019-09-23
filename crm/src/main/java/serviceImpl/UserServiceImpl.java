@@ -42,4 +42,8 @@ public class UserServiceImpl implements UserService{
 		// TODO Auto-generated method stub
 		return userDao.selectCount(where);
 	}
+	public User selectByTel(String tel) {
+		// TODO Auto-generated method stub
+		return userDao.selectByTel(tel);
+	}
 }

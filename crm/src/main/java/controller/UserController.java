@@ -2,6 +2,8 @@ package controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +27,22 @@ public class UserController {
 	WorkgroupService groupService;
 	
 	@RequestMapping("login")
-	public @ResponseBody String login(User u) {
+	public @ResponseBody String login(User u,HttpSession s) {
 		try {
 		SecurityUtils.getSubject().login(new UsernamePasswordToken(u.getTel(), u.getPass()));
 		}catch (Exception e) {
 			return "false";
 		}
+		s.setAttribute("currentUser", u);
+		System.out.println(s.getAttribute("currentUser"));
 		return "true";
 		
+	}
+	
+	@RequestMapping("outlogin")
+	public String outlogin(HttpSession s) {
+		SecurityUtils.getSubject().logout();
+		return "redirect:../X-admin/login.html";
 	}
 	
 	@RequestMapping("index")

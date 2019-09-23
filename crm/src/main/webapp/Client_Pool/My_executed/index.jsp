@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="../X-admin/lib/layui/css/layui.css" rel="stylesheet">
-<script type="text/javascript" src="../X-admin/lib/layui/layui.all.js"></script>
-<script src="../X-admin/js/jquery-2.2.4.min.js"></script>
-<script type="text/javascript" src="../X-admin/js/my.js"></script>
+<link href="/crm/X-admin/lib/layui/css/layui.css" rel="stylesheet">
+<script type="text/javascript" src="/crm/X-admin/lib/layui/layui.all.js"></script>
+<script src="/crm/X-admin/js/jquery-2.2.4.min.js"></script>
+<script type="text/javascript" src="/crm/X-admin/js/my.js"></script>
 <title></title>
 <style type="text/css">
 .input {
@@ -26,7 +26,7 @@
 	<table id="demo" lay-filter="test"></table>
 	<script type="text/html" id="barDemo">
 <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="remove">放弃</a>
 </script>
 	<script type="text/html" id="toolbarDemo">
   <div class="layui-btn-container">
@@ -34,11 +34,13 @@
       <input type="text" name="txt" lay-verify="title"  autocomplete="off" placeholder="请输入名称" class="layui-input input">
     </div>
     <button class="layui-btn layui-btn-sm" lay-event="search">查询</button>
-    <button class="layui-btn layui-btn-sm" lay-event="add">新增</button>
+    <button class="layui-btn layui-btn-sm" lay-event="appoints">批量分配</button>
   </div>
 </script>
 
-	<script>
+	<script type="text/javascript">
+	
+	var tel = ${currentUser.tel};
 	
 		layui.use('table', function() {
 			var table = layui.table;
@@ -47,8 +49,9 @@
 			table.render({
 				elem : '#demo',
 				height : 462,
-				url : '../Reserve/index' //数据接口
+				url : '/crm/Client_Pool/Myunexecuted' //数据接口
 				,
+				where:{tel:tel},
 				toolbar : '#toolbarDemo',
 				page : true //开启分页
 				,
@@ -56,53 +59,89 @@
 				{
 					field : 'id',
 					title : 'ID',
-					width : 80,
+					width : 100,
 					sort : true,
-				},{
-					field : 'revisitid',
-					title : '回访表id',
-					width : 150
-				},{
-					field : 'clientname',
+				}, {
+					field : 'name',
 					title : '客户名称',
+					width : 100
+				},{
+					field : 'sexname',
+					title : '性别',
+					width : 80
+				},{
+					field : 'tel',
+					title : '联系方式',
 					width : 150
 				},{
-					field : 'createdate',
-					title : '创建时间',
+					field : 'qq',
+					title : 'QQ',
 					width : 150
 				},{
-					field : 'username',
-					title : '操作人员',
+					field : 'email',
+					title : '邮箱',
 					width : 150
 				},{
-					field : 'execusername',
-					title : '处理人名称',
+					field : 'address',
+					title : '地址',
 					width : 150
 				},{
-					field : 'date',
-					title : '日期',
+					field : 'infos',
+					title : '额外信息',
 					width : 150
 				},{
-					field : 'typename',
-					title : '类型',
+					field : 'linkstatuname',
+					title : '电话状态',
 					width : 150
 				},{
-					field : 'statuname',
-					title : '状态',
+					field : 'clientstatuname',
+					title : '客户状态',
+					width : 150
+				},{
+					field : 'purposestatuname',
+					title : '意向状态',
+					width : 150
+				},{
+					field : 'assessstatuname',
+					title : '评估状态',
 					width : 150
 				},{
 					field : 'execstatuname',
-					title : '处理状态',
+					title : '执行状态',
 					width : 150
-				},{
-					field : 'result',
-					title : '结果',
+				}, {
+					field : 'clienttypename',
+					title : '客户类型',
+					width : 150
+				}, {
+					field : 'usernames',
+					title : '联系人们',
+					width : 150
+				}, {
+					field : 'createuserid',
+					title : '创建人',
+					width : 150
+				}, {
+					field : 'createdate',
+					title : '创建时间',
+					width : 150
+				}, {
+					field : 'srcid',
+					title : '客户来源',
+					width : 150
+				}, {
+					field : 'count',
+					title : '回访次数',
+					width : 150
+				}, {
+					field : 'comments',
+					title : '备注',
 					width : 150
 				}, {
 					fixed : 'right',
 					title : '操作',
 					toolbar : '#barDemo',
-					width : 150,
+					width : 200,
 					align : 'center'
 				}
 
@@ -123,17 +162,16 @@
 			//test  是table的lay-filter="test" 属性
 			table.on('tool(test)', function(obj) {
 				var data = obj.data;
-				if (obj.event === 'del') { ///lay-event 属性
+				if (obj.event === 'remove') { ///lay-event 属性
 					
-					myconfirm("刪除？",function(){
-						$.post("delete", {id : data.id}, 
+						$.post("/crm/Client/remove", {id : data.id}, 
 								function(json) {
 							reload('demo');
 							layer.close(layer.index);
 								}, "json");
-					});
+					
 				}else{
-					openFrame('../Reserve/edit.jsp?id='+data.id,'编辑',['400px', '70%']);
+					openFrame('./edit.jsp?id='+data.id,'编辑',['900px', '100%']);
 				}
 			});
 
@@ -142,11 +180,12 @@
 					var txt = $(event.target).prev().find("input").val();
 					reload('demo',{txt : txt});
 				} else {
-					openFrame("../Reserve/edit.jsp",'新增',['400px', '70%']);
+					openFrame("./edit.jsp",'批量分配',['900px', '100%']);
 				}
 			});
 
 		});
+		
 	</script>
 </body>
 </html>

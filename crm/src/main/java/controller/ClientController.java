@@ -100,4 +100,9 @@ public class ClientController {
 		clientService.update(u);
 		return "{\"status\":1}";
 	}
+	@RequestMapping("remove")
+	public @ResponseBody String remove(Client u) {
+		clientService.remove(u);
+		return "{\"status\":1}";
+	}
 }

@@ -42,4 +42,18 @@ public class ClientServiceImpl implements ClientService{
 		// TODO Auto-generated method stub
 		return clientDao.selectCount(where);
 	}
+	
+	//以下为业务
+	public List<Client> getNoappoint(String where, String limit) {
+		// TODO Auto-generated method stub
+		return clientDao.getNoappoint(where,limit);
+	}
+	public List<Client> getMyunexecuted(String where, String limit) {
+		// TODO Auto-generated method stub
+		return clientDao.getMyunexecuted(where,limit);
+	}
+	public int remove(Client u) {
+		// TODO Auto-generated method stub
+		return clientDao.remove(u);
+	}
 }

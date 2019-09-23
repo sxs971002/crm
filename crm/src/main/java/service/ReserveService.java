@@ -13,4 +13,5 @@ public interface ReserveService {
 	public Reserve getById(int id);
 	public int update(Reserve o);
 	public int selectCount(String where);
+	public List<Reserve> getMyreserved(String where, String lim);
 }

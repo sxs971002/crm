@@ -13,4 +13,5 @@ public interface UserService {
 	public User selectById(int id);
 	public int update(User u);
 	public int selectCount(String where);
+	public User selectByTel(String tel);
 }
