@@ -61,8 +61,8 @@ public class OrderController {
 	
 	
 	@RequestMapping("insert")
-	public @ResponseBody String insert(Order u) {
-		orderService.insert(u);
+	public @ResponseBody String insert(Order o) {
+		orderService.insert(o);
 		return "{\"status\":1}";
 	}
 	
@@ -74,5 +74,10 @@ public class OrderController {
 	public @ResponseBody String update(Order u) {
 		orderService.update(u);
 		return "{\"status\":1}";
+	}
+	
+	@RequestMapping("getByClientId")
+	public @ResponseBody Order getByClientId(int clientid) {
+		return orderService.getByClientId(clientid);
 	}
 }

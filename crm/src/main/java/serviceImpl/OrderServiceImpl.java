@@ -1,5 +1,7 @@
 package serviceImpl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,10 @@ public class OrderServiceImpl implements OrderService{
 	}
 	public int insert(Order o) {
 		// TODO Auto-generated method stub
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String dateStr = sdf.format(date);
+		o.setCreatedate(dateStr);
 		return orderDao.insert(o);
 	}
 	public Order getById(int id) {
@@ -41,5 +47,9 @@ public class OrderServiceImpl implements OrderService{
 	public int selectCount(String where) {
 		// TODO Auto-generated method stub
 		return orderDao.selectCount(where);
+	}
+	public Order getByClientId(int clientid) {
+		// TODO Auto-generated method stub
+		return orderDao.getByClientId(clientid);
 	}
 }

@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import entity.Client;
 import entity.Client_type;
 import entity.Src;
+import entity.User;
 import service.ClientService;
 import service.Client_type_Service;
 import service.SrcService;
+import service.UserService;
 import utils.ReturnInfo;
 
 @Controller
@@ -25,6 +27,8 @@ public class ClientController {
 	Client_type_Service ctService;
 	@Autowired
 	SrcService srcService;
+	@Autowired
+	UserService userService;
 	
 	@RequestMapping("index")
 	public @ResponseBody ReturnInfo index(String txt,Integer page,Integer limit) {
@@ -77,6 +81,11 @@ public class ClientController {
 		return ctService.getAll(null,null);
 	}
 	
+	@RequestMapping("getCreateuser")
+	public @ResponseBody List<User> getCreateuser() {
+		return userService.getAll(null,null);
+	}
+	
 	
 	@RequestMapping("delete")
 	public @ResponseBody String delete(int id) {
@@ -100,9 +109,15 @@ public class ClientController {
 		clientService.update(u);
 		return "{\"status\":1}";
 	}
+	//以下为业务
 	@RequestMapping("remove")
 	public @ResponseBody String remove(Client u) {
 		clientService.remove(u);
 		return "{\"status\":1}";
+	}
+	
+	@RequestMapping("getAllById")
+	public @ResponseBody Client getAllById(int clientid) {
+		return clientService.getAllById(clientid);
 	}
 }

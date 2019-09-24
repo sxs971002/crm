@@ -56,16 +56,16 @@
 				{
 					field : 'id',
 					title : 'ID',
-					width : 50,
+					width : 150,
 					sort : true,
 				},{
 					field : 'clientname',
 					title : '客户名称',
-					width : 80
+					width : 150
 				},{
 					field : 'createdate',
 					title : '创建日期',
-					width : 80
+					width : 150
 				},{
 					field : 'performdate',
 					title : '业绩日期',
@@ -85,35 +85,35 @@
 				},{
 					field : 'infos',
 					title : '额外信息',
-					width : 80
+					width : 150
 				},{
 					field : 'createusername',
 					title : '创建人名称',
-					width : 80
+					width : 150
 				},{
 					field : 'files',
 					title : '文件',
-					width : 80
+					width : 150
 				},{
 					field : 'performuserids',
 					title : '业绩人员',
-					width : 80
+					width : 150
 				},{
 					field : 'performweight',
 					title : '业绩比重',
-					width : 80
+					width : 150
 				}, {
 					field : 'statu',
 					title : '状态',
-					width : 80
+					width : 150
 				}, {
 					field : 'totalprice',
 					title : '总金额',
-					width : 80
+					width : 150
 				}, {
 					field : 'comments',
 					title : '备注',
-					width : 80
+					width : 150
 				}, {
 					fixed : 'right',
 					title : '操作',
@@ -149,7 +149,7 @@
 								}, "json");
 					});
 				}else{
-					openFrame('../Order/edit.jsp?id='+data.id,'编辑',['400px', '70%']);
+					openFrame('../Order/edit.jsp?id='+data.id,'编辑',['1000px', '90%']);
 				}
 			});
 
@@ -158,7 +158,7 @@
 					var txt = $(event.target).prev().find("input").val();
 					reload('demo',{txt : txt});
 				} else {
-					openFrame("../Order/edit.jsp",'新增',['400px', '70%']);
+					openFrame("../Order/edit.jsp",'新增',['1000px', '90%']);
 				}
 			});
 

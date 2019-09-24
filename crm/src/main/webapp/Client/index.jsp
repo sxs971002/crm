@@ -115,7 +115,7 @@
 					title : '处理人们',
 					width : 150
 				}, {
-					field : 'createuserid',
+					field : 'createusername',
 					title : '创建人',
 					width : 150
 				}, {
@@ -123,7 +123,7 @@
 					title : '创建时间',
 					width : 150
 				}, {
-					field : 'srcid',
+					field : 'srcname',
 					title : '客户来源',
 					width : 150
 				}, {
@@ -169,7 +169,7 @@
 								}, "json");
 					});
 				}else{
-					openFrame('../Client/edit.jsp?id='+data.id,'编辑',['400px', '70%']);
+					openFrame('../Client/edit.jsp?id='+data.id,'编辑',['1000px', '90%']);
 				}
 			});
 
@@ -178,7 +178,7 @@
 					var txt = $(event.target).prev().find("input").val();
 					reload('demo',{txt : txt});
 				} else {
-					openFrame("../Client/edit.jsp",'新增',['400px', '70%']);
+					openFrame("../Client/edit.jsp",'新增',['1000px', '90%']);
 				}
 			});
 

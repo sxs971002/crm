@@ -13,6 +13,7 @@ public class Order {
 	private String infos;
 	private String files;
 	private String performuserids;
+	private String performusernames;
 	private String performweight;
 	private int statu;
 	private double totalprice;
@@ -124,6 +125,12 @@ public class Order {
 	}
 	public void setComments(String comments) {
 		this.comments = comments;
+	}
+	public String getPerformusernames() {
+		return performusernames;
+	}
+	public void setPerformusernames(String performusernames) {
+		this.performusernames = performusernames;
 	}
 	
 	

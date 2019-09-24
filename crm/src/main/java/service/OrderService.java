@@ -13,4 +13,6 @@ public interface OrderService {
 	public Order getById(int id);
 	public int update(Order o);
 	public int selectCount(String where);
+	//以下为业务
+	public Order getByClientId(int clientid);
 }

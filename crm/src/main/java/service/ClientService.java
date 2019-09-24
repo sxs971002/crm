@@ -13,7 +13,10 @@ public interface ClientService {
 	public Client getById(int id);
 	public int update(Client c);
 	public int selectCount(String where);
+	//以下为业务
 	public List<Client> getNoappoint(String where, String lim);
 	public List<Client> getMyunexecuted(String where, String lim);
 	public int remove(Client u);
+	public Client getAllById(int clientid);
+	public List<Client> getMyexecuted(String where, String lim);
 }

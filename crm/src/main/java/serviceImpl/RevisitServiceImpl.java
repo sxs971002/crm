@@ -48,4 +48,10 @@ public class RevisitServiceImpl implements RevisitService{
 		// TODO Auto-generated method stub
 		return revisitDao.selectCount(where);
 	}
+	
+	//查看我的回访记录
+	public List<Revisit> getMyrevisit(String where, String limit) {
+		// TODO Auto-generated method stub
+		return revisitDao.getAllById(where, limit);
+	}
 }

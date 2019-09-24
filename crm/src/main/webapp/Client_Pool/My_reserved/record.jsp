@@ -17,6 +17,7 @@
 	margin-right: 10px;
 	width: 200px;
 }
+
 .layui-form-select{width:200px;
 }
 </style>
@@ -24,8 +25,8 @@
 <body>
 	<table id="demo" lay-filter="test"></table>
 	<script type="text/html" id="barDemo">
-<a class="layui-btn layui-btn-xs" lay-event="orders">合同详情</a>
-<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="infos">客户详情</a>
+<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 	<script type="text/html" id="toolbarDemo">
   <div class="layui-btn-container">
@@ -33,14 +34,12 @@
       <input type="text" name="txt" lay-verify="title"  autocomplete="off" placeholder="请输入名称" class="layui-input input">
     </div>
     <button class="layui-btn layui-btn-sm" lay-event="search">查询</button>
-    <button class="layui-btn layui-btn-sm" lay-event="appoints">批量分配</button>
+    <button class="layui-btn layui-btn-sm" lay-event="add">新增</button>
   </div>
 </script>
 
-	<script type="text/javascript">
-	
-	var tel = ${currentUser.tel};
-	
+	<script>
+	var execuserid ="${param.execuserid}";
 		layui.use('table', function() {
 			var table = layui.table;
 
@@ -48,9 +47,9 @@
 			table.render({
 				elem : '#demo',
 				height : 462,
-				url : '/crm/Client_Pool/Myexecuted' //数据接口
+				url : '/crm/Client_Pool/Myrevisit' //数据接口
 				,
-				where:{tel:tel},
+				where:{execuserid:execuserid},
 				toolbar : '#toolbarDemo',
 				page : true //开启分页
 				,
@@ -61,32 +60,8 @@
 					width : 100,
 					sort : true,
 				}, {
-					field : 'name',
+					field : 'clientname',
 					title : '客户名称',
-					width : 100
-				},{
-					field : 'sexname',
-					title : '性别',
-					width : 80
-				},{
-					field : 'tel',
-					title : '联系方式',
-					width : 150
-				},{
-					field : 'qq',
-					title : 'QQ',
-					width : 150
-				},{
-					field : 'email',
-					title : '邮箱',
-					width : 150
-				},{
-					field : 'address',
-					title : '地址',
-					width : 150
-				},{
-					field : 'infos',
-					title : '额外信息',
 					width : 150
 				},{
 					field : 'linkstatuname',
@@ -108,29 +83,17 @@
 					field : 'execstatuname',
 					title : '执行状态',
 					width : 150
-				}, {
-					field : 'clienttypename',
-					title : '客户类型',
+				},{
+					field : 'askinfo',
+					title : '询问状况',
 					width : 150
 				}, {
-					field : 'usernames',
-					title : '处理人',
+					field : 'followinfo',
+					title : '跟踪状况',
 					width : 150
 				}, {
-					field : 'createusername',
-					title : '创建人',
-					width : 150
-				}, {
-					field : 'createdate',
-					title : '创建时间',
-					width : 150
-				}, {
-					field : 'srcname',
-					title : '客户来源',
-					width : 150
-				}, {
-					field : 'count',
-					title : '回访次数',
+					field : 'probleminfo',
+					title : '问题状况',
 					width : 150
 				}, {
 					field : 'comments',
@@ -140,7 +103,7 @@
 					fixed : 'right',
 					title : '操作',
 					toolbar : '#barDemo',
-					width : 200,
+					width : 150,
 					align : 'center'
 				}
 
@@ -161,10 +124,17 @@
 			//test  是table的lay-filter="test" 属性
 			table.on('tool(test)', function(obj) {
 				var data = obj.data;
-				if (obj.event === 'infos') { ///lay-event 属性
-					openFrame('../My_reserved/infos.jsp?clientid='+data.id,'客户详情',['1000px', '95%']);
+				if (obj.event === 'del') { ///lay-event 属性
+					
+					myconfirm("刪除？",function(){
+						$.post("delete", {id : data.id}, 
+								function(json) {
+							reload('demo');
+							layer.close(layer.index);
+								}, "json");
+					});
 				}else{
-					openFrame('./orders.jsp?clientid='+data.id,'合同详情',['1000px', '60%']);
+					openFrame('/crm/Revisit/edit.jsp?id='+data.id,'编辑',['800px', '70%']);
 				}
 			});
 
@@ -173,12 +143,11 @@
 					var txt = $(event.target).prev().find("input").val();
 					reload('demo',{txt : txt});
 				} else {
-					openFrame("./edit.jsp",'批量分配',['900px', '100%']);
+					openFrame("/crm/Revisit/edit.jsp",'新增',['800px', '70%']);
 				}
 			});
 
 		});
-		
 	</script>
 </body>
 </html>

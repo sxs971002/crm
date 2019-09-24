@@ -112,7 +112,7 @@
 					width : 150
 				}, {
 					field : 'usernames',
-					title : '联系人们',
+					title : '处理人',
 					width : 150
 				}, {
 					field : 'createuserid',

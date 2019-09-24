@@ -13,4 +13,5 @@ public interface RevisitService {
 	public Revisit getById(int id);
 	public int update(Revisit c);
 	public int selectCount(String where);
+	public List<Revisit> getMyrevisit(String where, String lim);
 }

@@ -1,5 +1,7 @@
 package serviceImpl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,10 @@ public class ClientServiceImpl implements ClientService{
 	}
 	public int insert(Client c) {
 		// TODO Auto-generated method stub
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String dateStr = sdf.format(date);
+		c.setCreatedate(dateStr);
 		return clientDao.insert(c);
 	}
 	public Client getById(int id) {
@@ -55,5 +61,13 @@ public class ClientServiceImpl implements ClientService{
 	public int remove(Client u) {
 		// TODO Auto-generated method stub
 		return clientDao.remove(u);
+	}
+	public Client getAllById(int clientid) {
+		// TODO Auto-generated method stub
+		return clientDao.getAllById(clientid);
+	}
+	public List<Client> getMyexecuted(String where, String limit) {
+		// TODO Auto-generated method stub
+		return clientDao.getMyexecuted(where,limit);
 	}
 }

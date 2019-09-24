@@ -14,7 +14,8 @@
 </head>
 <body>
 <style>
-.layui-input{width:200px;}
+.layui-input{width:250px;}
+.layui-input-block{width:250px;}
 </style>
 
 <c:if test="${param.id==null}">

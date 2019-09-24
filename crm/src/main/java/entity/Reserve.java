@@ -1,13 +1,12 @@
 package entity;
 
-import java.util.Date;
 
 public class Reserve {
 
 	private int id;
 	private int revisitid;
 	private int clientid;
-	private String createdate = new Date().toString();
+	private String createdate;
 	private int userid;
 	private String date;
 	private int execuserid;

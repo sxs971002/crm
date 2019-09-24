@@ -78,6 +78,21 @@
   </div>
   
   <div class="layui-form-item">
+    <label class="layui-form-label">处理人</label>
+    <div class="layui-input-block">
+      	<input type="hidden" name="userids">
+		<input type="text" name="usernames" readonly="readonly" autocomplete="off" placeholder="请输入" class="layui-input" id="demo"> 
+    </div>
+  </div>
+  
+  <div class="layui-form-item">
+    <label class="layui-form-label">创建人</label>
+    <div class="layui-input-block">
+      <select name="createuserid"></select>
+    </div>
+  </div>
+  
+  <div class="layui-form-item">
     <label class="layui-form-label">电话状态</label>
     <div class="layui-input-block">
       <select name="linkstatu" >
@@ -134,33 +149,9 @@
   </div>
   
   <div class="layui-form-item">
-    <label class="layui-form-label">处理人</label>
-    <div class="layui-input-block">
-      	<input type="hidden" name="userids">
-		<input type="text" name="usernames" readonly="readonly" autocomplete="off" placeholder="请输入" class="layui-input" id="demo"> 
-    </div>
-  </div>
-  
-  <div class="layui-form-item">
-    <label class="layui-form-label">创建人</label>
-    <div class="layui-input-block">
-      <input type="text" name="createuserid"  autocomplete="off" placeholder="请输入创建人" class="layui-input">
-    </div>
-  </div>
-  
-  
-  <div class="layui-form-item">
-      <label class="layui-form-label">创建时间</label>
-      <div class="layui-input-inline">
-        <input class="layui-input" id="test1" name="createdate" type="text" placeholder="yyyy-MM-dd" >
-      </div>
-    </div>
-  
-  
-  <div class="layui-form-item">
     <label class="layui-form-label">客户来源</label>
     <div class="layui-input-block">
-      <input type="text" name="srcid"  autocomplete="off" placeholder="请输入客户来源" class="layui-input">
+      <select name="srcid"></select>
     </div>
   </div>
   
@@ -255,6 +246,7 @@ function init(){
 		getarray("../Client/getStatus",{},"[name=statu]",json.statu);
 		getlist("../Client/getSrcs",{},"[name=srcid]",json.srcid);
 		getlist("../Client/getClienttypes",{},"[name=clienttypeid]",json.clienttypeid);
+		getlist("../Client/getCreateuser",{},"[name=createuserid]",json.createuserid);
 	},"json");
 	
 }
@@ -270,6 +262,7 @@ if(id.length>0){
 	getarray("../Client/getStatus",{},"[name=statu]",0);
 	getlist("../Client/getSrcs",{},"[name=srcid]",0);
 	getlist("../Client/getClienttypes",{},"[name=clienttypeid]",0);
+	getlist("../Client/getCreateuser",{},"[name=createuserid]",0);
 }
 
 function getlist(url,data,selector,def_id){

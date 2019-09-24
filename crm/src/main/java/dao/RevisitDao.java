@@ -34,5 +34,9 @@ public interface RevisitDao {
 
 	@Select("select count(1) from c_revisit inner join c_client on c_revisit.clientid = c_client.id ${txt}")
 	public int selectCount(@Param("txt")String where);
+
+	//以下为业务
+	@Select("select c_revisit.*,c_client.name clientname from c_revisit inner join c_client on c_revisit.clientid = c_client.id ${txt} ${lim}")
+	public List<Revisit> getAllById(@Param("txt")String where, @Param("lim")String limit);
 	
 }
