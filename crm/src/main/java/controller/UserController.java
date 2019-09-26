@@ -33,7 +33,8 @@ public class UserController {
 		}catch (Exception e) {
 			return "false";
 		}
-		s.setAttribute("currentUser", u);
+		User currentUser = userService.selectByTel(u.getTel());
+		s.setAttribute("currentUser", currentUser);
 		System.out.println(s.getAttribute("currentUser"));
 		return "true";
 		

@@ -26,6 +26,7 @@
 	<table id="demo" lay-filter="test"></table>
 	<script type="text/html" id="barDemo">
 <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+<a class="layui-btn layui-btn-xs" lay-event="orderdetails">合同明细</a> 
 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 	<script type="text/html" id="toolbarDemo">
@@ -157,8 +158,10 @@
 				if (obj.event === 'search') {
 					var txt = $(event.target).prev().find("input").val();
 					reload('demo',{txt : txt});
-				} else {
+				} else if(obj.event === 'add'){
 					openFrame("../Order/edit.jsp",'新增',['1000px', '90%']);
+				} else if(obj.event === 'orderdetails'){
+					openFrame("./orderdetails.jsp",'合同明细',['1000px', '90%']);
 				}
 			});
 

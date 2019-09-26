@@ -46,7 +46,7 @@
 			//第一个实例
 			table.render({
 				elem : '#demo',
-				height : 462,
+				height : 620,
 				url : '../Client/index' //数据接口
 				,
 				toolbar : '#toolbarDemo',
@@ -77,7 +77,7 @@
 				},{
 					field : 'email',
 					title : '邮箱',
-					width : 150
+					width : 200
 				},{
 					field : 'address',
 					title : '地址',
@@ -177,7 +177,7 @@
 				if (obj.event === 'search') {
 					var txt = $(event.target).prev().find("input").val();
 					reload('demo',{txt : txt});
-				} else {
+				} else if(obj.event === 'add'){
 					openFrame("../Client/edit.jsp",'新增',['1000px', '90%']);
 				}
 			});

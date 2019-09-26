@@ -206,7 +206,7 @@ layui.use(['form','laydate'], function(){
 var tableSelect = layui.tableSelect;
 tableSelect.render({
 	elem: '#demo',	//定义输入框input对象
-	checkedKey: 'id' ,//表格的唯一建值，非常重要，影响到选中状态 必填
+	checkedKey: 'tel' ,//表格的唯一建值，非常重要，影响到选中状态 必填
 	searchKey: 'txt',	//搜索输入框的name值 默认keyword
 	searchPlaceholder: '搜索',	//搜索输入框的提示文字 默认关键词搜索
 	table: {	//定义表格参数，与LAYUI的TABLE模块一致，只是无需再定义表格elem

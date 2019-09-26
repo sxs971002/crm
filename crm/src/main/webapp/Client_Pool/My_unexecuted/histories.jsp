@@ -20,7 +20,6 @@
 
 .layui-form-select{width:200px;
 }
-
 </style>
 </head>
 <body>
@@ -35,13 +34,12 @@
       <input type="text" name="txt" lay-verify="title"  autocomplete="off" placeholder="请输入名称" class="layui-input input">
     </div>
     <button class="layui-btn layui-btn-sm" lay-event="search">查询</button>
-    <button class="layui-btn layui-btn-sm" lay-event="import">导入</button>
-    <button class="layui-btn layui-btn-sm" lay-event="appoints">批量分配</button>
+    <button class="layui-btn layui-btn-sm" lay-event="add">新增</button>
   </div>
 </script>
 
 	<script>
-	
+	var clientid ="${param.clientid}";
 		layui.use('table', function() {
 			var table = layui.table;
 
@@ -49,48 +47,25 @@
 			table.render({
 				elem : '#demo',
 				height : 462,
-				url : '/crm/Client_Pool/noappoint' //数据接口
+				url : '/crm/Client_Pool/Client_Histories' //数据接口
 				,
+				where:{clientid:clientid},
 				toolbar : '#toolbarDemo',
 				page : true //开启分页
 				,
 				cols : [ [ //表头
-				{
-					type: 'checkbox',
-					fixed: 'left'
-				},
 				{
 					field : 'id',
 					title : 'ID',
 					width : 100,
 					sort : true,
 				}, {
-					field : 'name',
+					field : 'clientname',
 					title : '客户名称',
-					width : 100
-				},{
-					field : 'sexname',
-					title : '性别',
-					width : 80
-				},{
-					field : 'tel',
-					title : '联系方式',
 					width : 150
-				},{
-					field : 'qq',
-					title : 'QQ',
-					width : 150
-				},{
-					field : 'email',
-					title : '邮箱',
-					width : 150
-				},{
-					field : 'address',
-					title : '地址',
-					width : 150
-				},{
-					field : 'infos',
-					title : '额外信息',
+				}, {
+					field : 'execusername',
+					title : '执行人名称',
 					width : 150
 				},{
 					field : 'linkstatuname',
@@ -112,29 +87,17 @@
 					field : 'execstatuname',
 					title : '执行状态',
 					width : 150
-				}, {
-					field : 'clienttypename',
-					title : '客户类型',
+				},{
+					field : 'askinfo',
+					title : '询问状况',
 					width : 150
 				}, {
-					field : 'usernames',
-					title : '处理人',
+					field : 'followinfo',
+					title : '跟踪状况',
 					width : 150
 				}, {
-					field : 'createuserid',
-					title : '创建人',
-					width : 150
-				}, {
-					field : 'createdate',
-					title : '创建时间',
-					width : 150
-				}, {
-					field : 'srcid',
-					title : '客户来源',
-					width : 150
-				}, {
-					field : 'count',
-					title : '回访次数',
+					field : 'probleminfo',
+					title : '问题状况',
 					width : 150
 				}, {
 					field : 'comments',
@@ -144,7 +107,7 @@
 					fixed : 'right',
 					title : '操作',
 					toolbar : '#barDemo',
-					width : 200,
+					width : 150,
 					align : 'center'
 				}
 
@@ -174,8 +137,8 @@
 							layer.close(layer.index);
 								}, "json");
 					});
-				}else if(obj.event === 'edit'){
-					openFrame('./edit.jsp?id='+data.id,'编辑',['900px', '100%']);
+				}else{
+					openFrame('/crm/Revisit/edit.jsp?id='+data.id,'编辑',['800px', '70%']);
 				}
 			});
 
@@ -183,22 +146,8 @@
 				if (obj.event === 'search') {
 					var txt = $(event.target).prev().find("input").val();
 					reload('demo',{txt : txt});
-				} else if(obj.event === 'appoints'){
-					var checkStatus = table.checkStatus(obj.config.id);
-					if (checkStatus.data.length == 0){
-						layer.msg('请务必选择一行', {
-							  icon: 2,
-							  time: 2000 //2秒关闭（如果不配置，默认是3秒）
-							});
-						return ;
-					}
-					var clientids="";
-                    for (var i=0;i<checkStatus.data.length;i++){
-                    	clientids = clientids + checkStatus.data[i].id + ',';
-                    }
-                    openFrame('./appoints.jsp?clientids='+clientids,'批量分配',['900px', '100%']);
-				} else if(obj.event === 'import'){
-					openFrame('/crm/Client/import.html','导入',['900px', '100%']);
+				} else {
+					openFrame("/crm/Revisit/edit.jsp",'新增',['800px', '70%']);
 				}
 			});
 

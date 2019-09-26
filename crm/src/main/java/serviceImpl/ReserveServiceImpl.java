@@ -53,4 +53,8 @@ public class ReserveServiceImpl implements ReserveService{
 		// TODO Auto-generated method stub
 		return reserveDao.getMyreserved(where,lim);
 	}
+	public int updatepool(Reserve o) {
+		// TODO Auto-generated method stub
+		return reserveDao.updatepool(o);
+	}
 }

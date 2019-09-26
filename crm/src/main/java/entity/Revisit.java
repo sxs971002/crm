@@ -4,6 +4,7 @@ public class Revisit {
 
 	private int id;
 	private int clientid;
+	private int execuserid;
 	private String date;
 	
 	private int linkstatu;
@@ -27,9 +28,13 @@ public class Revisit {
 	public static String[] status= {"正常","隐藏"};
 	 
 	private String clientname;//外键
+	private String execusername;//外键
 	
 	public String getClientname() {
 		return clientname;
+	}
+	public String getExecusername() {
+		return execusername;
 	}
 	
 	public String getLinkstatuname() {
@@ -154,6 +159,12 @@ public class Revisit {
 
 	public void setComments(String comments) {
 		this.comments = comments;
+	}
+	public int getExecuserid() {
+		return execuserid;
+	}
+	public void setExecuserid(int execuserid) {
+		this.execuserid = execuserid;
 	}
 	
 }

@@ -63,6 +63,10 @@
 					title : '客户名称',
 					width : 150
 				},{
+					field : 'execusername',
+					title : '执行人名称',
+					width : 150
+				},{
 					field : 'linkstatuname',
 					title : '电话状态',
 					width : 150
@@ -141,7 +145,7 @@
 				if (obj.event === 'search') {
 					var txt = $(event.target).prev().find("input").val();
 					reload('demo',{txt : txt});
-				} else {
+				} else if(obj.event === 'add'){
 					openFrame("../Revisit/edit.jsp",'新增',['400px', '70%']);
 				}
 			});

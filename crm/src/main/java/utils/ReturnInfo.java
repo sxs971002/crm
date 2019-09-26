@@ -13,6 +13,16 @@ public class ReturnInfo {
 		return " limit "+((page-1)*max)+","+max;
 	}
 	
+	public ReturnInfo(){
+		super();
+	}
+	
+	public ReturnInfo(List<?> list){
+		super();
+		this.list=list;
+		this.count=list.size();
+	}
+	
 	public int getCount() {
 		return count;
 	}

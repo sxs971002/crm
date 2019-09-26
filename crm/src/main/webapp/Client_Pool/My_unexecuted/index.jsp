@@ -26,6 +26,8 @@
 	<table id="demo" lay-filter="test"></table>
 	<script type="text/html" id="barDemo">
 <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+<a class="layui-btn layui-btn-xs" lay-event="addreserve">添加预约</a>
+<a class="layui-btn layui-btn-xs" lay-event="histories">历史回访记录</a>
 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="remove">放弃</a>
 </script>
 	<script type="text/html" id="toolbarDemo">
@@ -41,6 +43,7 @@
 	<script type="text/javascript">
 	
 	var tel = ${currentUser.tel};
+	var execuserid = ${currentUser.id};
 	
 		layui.use('table', function() {
 			var table = layui.table;
@@ -80,7 +83,7 @@
 				},{
 					field : 'email',
 					title : '邮箱',
-					width : 150
+					width : 200
 				},{
 					field : 'address',
 					title : '地址',
@@ -141,7 +144,7 @@
 					fixed : 'right',
 					title : '操作',
 					toolbar : '#barDemo',
-					width : 200,
+					width : 300,
 					align : 'center'
 				}
 
@@ -162,7 +165,9 @@
 			//test  是table的lay-filter="test" 属性
 			table.on('tool(test)', function(obj) {
 				var data = obj.data;
-				if (obj.event === 'remove') { ///lay-event 属性
+				if (obj.event === 'addreserve') {
+					openFrame('./addreserve.jsp?execuserid='+execuserid+'&clientid='+data.id,'编辑',['1000px', '80%']);
+				}else if (obj.event === 'remove') { ///lay-event 属性
 					
 						$.post("/crm/Client/remove", {id : data.id}, 
 								function(json) {
@@ -170,7 +175,9 @@
 							layer.close(layer.index);
 								}, "json");
 					
-				}else{
+				}else if(obj.event === 'histories') {
+					openFrame('./histories.jsp?clientid='+data.id,'历史回访记录',['900px', '90%']);
+				}else {
 					openFrame('./edit.jsp?id='+data.id,'编辑',['900px', '100%']);
 				}
 			});
@@ -179,7 +186,7 @@
 				if (obj.event === 'search') {
 					var txt = $(event.target).prev().find("input").val();
 					reload('demo',{txt : txt});
-				} else {
+				} else if(obj.event === 'appoints'){
 					openFrame("./edit.jsp",'批量分配',['900px', '100%']);
 				}
 			});

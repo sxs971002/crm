@@ -64,13 +64,9 @@ public class Client_Pool_Controller {
 
 	// 查看我的预约客户
 	@RequestMapping("Myreserved")
-	public @ResponseBody ReturnInfo index3(String tel, String txt, Integer page, Integer limit) {
+	public @ResponseBody ReturnInfo index3(int execuserid, String txt, Integer page, Integer limit) {
 		ReturnInfo info = new ReturnInfo();
-		String where = "";
-		User u = userService.selectByTel(tel);
-		where = "where c_reserve.execuserid = ''";
-		if (u != null)
-			where = "where c_reserve.execuserid =" + u.getId();
+		String where = "where c_reserve.execuserid =" + execuserid;
 		if (txt != null)
 			where = where + " and c_client.name like '%" + txt + "%'";
 		System.out.println(where);
@@ -80,15 +76,26 @@ public class Client_Pool_Controller {
 		return info;
 	}
 
-	// 查看我的回访记录
-	@RequestMapping("Myrevisit")
-	public @ResponseBody ReturnInfo index4(int execuserid, String txt, Integer page, Integer limit) {
+	//查看顾客的所有历史回访记录
+	@RequestMapping("Client_Histories")
+	public @ResponseBody ReturnInfo index4(int clientid, String txt, Integer page, Integer limit) {
 		ReturnInfo info = new ReturnInfo();
 		String where = "";
-		User u = userService.selectById(execuserid);
-		where = "where c_revisit.execuserid = ''";
-		if (u != null)
-			where = "where c_revisit.execuserid =" + u.getId();
+		where = "where c_revisit.clientid = " + clientid;
+		if (txt != null)
+			where = where + " and c_client.name like '%" + txt + "%'";
+		String lim = info.getLimit(page, limit);
+		info.setCount(revisitService.selectCount(where));
+		info.setList(revisitService.getAll(where, lim));
+		return info;
+	}
+
+	
+	// 查看我的回访记录
+	@RequestMapping("Myrevisit")
+	public @ResponseBody ReturnInfo index5(int clientid, int execuserid, String txt, Integer page, Integer limit) {
+		ReturnInfo info = new ReturnInfo();
+		String where = "where c_revisit.execuserid =" + execuserid + " and c_client.id="+clientid;
 		if (txt != null)
 			where = where + " and c_client.name like '%" + txt + "%'";
 		String lim = info.getLimit(page, limit);
@@ -105,7 +112,7 @@ public class Client_Pool_Controller {
 		User u = userService.selectByTel(tel);
 		where = "where c_client.usernames = ''";
 		if (u != null)
-			where = "where c_client.usernames like '%" + u.getName() + "%' and c_client.count != 0";
+			where = "where c_client.usernames like '%" + u.getName() + "%' and c_client.count != 0 and c_client.execstatu = 2";
 		if (txt != null)
 			where = where + " and c_client.name like '%" + txt + "%'";
 		String lim = info.getLimit(page, limit);
@@ -113,4 +120,16 @@ public class Client_Pool_Controller {
 		info.setList(clientService.getMyexecuted(where, lim));
 		return info;
 	}
+	
+	//批量分配
+	@RequestMapping("updates")
+	public @ResponseBody String updates(String clientids,String userids,String usernames) {
+		System.out.println(userids);
+		String clientid[] = clientids.split(",");
+		for(int i = 0;i<clientid.length;i++) {
+			clientService.updates(clientid[i],userids,usernames);
+		}
+		return "{\"status\":1}";
+	}
+	
 }

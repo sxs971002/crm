@@ -33,6 +33,14 @@
     </div>
   </div>
   
+  <div class="layui-form-item">
+    <label class="layui-form-label">执行人名称</label>
+    <div class="layui-input-block">
+      <select name="execuserid" >
+      </select>
+    </div>
+  </div>
+  
   
   <div class="layui-form-item">
     <label class="layui-form-label">电话状态</label>
@@ -149,6 +157,7 @@ function init(){
 		getarray("../Revisit/getExecstatus",{},"[name=execstatu]",json.execstatu);
 		getarray("../Revisit/getStatus",{},"[name=statu]",json.statu);
 		getlist("../Revisit/getClients",{},"[name=clientid]",json.clientid);
+		getlist("../Revisit/getExecuser",{},"[name=execuserid]",json.execuserid);
 	},"json");
 	
 }
@@ -162,6 +171,7 @@ if(id.length>0){
 	getarray("../Revisit/getExecstatus",{},"[name=execstatu]",0);
 	getarray("../Revisit/getStatus",{},"[name=statu]",0);
 	getlist("../Revisit/getClients",{},"[name=clientid]",0);
+	getlist("../Revisit/getExecuser",{},"[name=execuserid]",0);
 }
 
 function getlist(url,data,selector,def_id){

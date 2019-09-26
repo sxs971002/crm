@@ -81,8 +81,13 @@ public class ReserveController {
 		return reserveService.getById(id);
 	}
 	@RequestMapping("update")
-	public @ResponseBody String update(Reserve u) {
-		reserveService.update(u);
+	public @ResponseBody String update(Reserve r) {
+		reserveService.update(r);
+		return "{\"status\":1}";
+	}
+	@RequestMapping("updatepool")
+	public @ResponseBody String updatepool(Reserve r) {
+		reserveService.updatepool(r);
 		return "{\"status\":1}";
 	}
 }

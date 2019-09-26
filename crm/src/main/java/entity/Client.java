@@ -34,6 +34,19 @@ public class Client {
 	public static String[] execstatus= {"正常","转出","完成"};
 	public static String[] status= {"正常","公共","资料不齐","无效"};
 	 
+	
+	
+	private int uploadstatus=0;  // 0未上传  1成功  2失败
+	public String getUploadstatusname() {
+		return uploadstatus==0?"未上传":"成功";
+	}
+	public int getUploadstatus() {
+		return uploadstatus;
+	}
+	public void setUploadstatus(int uploadstatus) {
+		this.uploadstatus = uploadstatus;
+	}
+	
 	private String clienttypename;//外键
 	private String srcname;
 	private String createusername;

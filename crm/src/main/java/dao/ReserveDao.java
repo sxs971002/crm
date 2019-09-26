@@ -35,7 +35,11 @@ public interface ReserveDao {
 	@Select("select count(1) from ((c_reserve inner join c_client on c_reserve.clientid = c_client.id) inner join c_user u1 on c_reserve.userid = u1.id) inner join c_user u2 on c_reserve.execuserid = u2.id ${txt}")
 	public int selectCount(@Param("txt")String where);
 
+	//以下为业务
 	@Select("select c_client.name clientname,u1.name username,u2.name execusername,c_reserve.* from ((c_reserve inner join c_client on c_reserve.clientid = c_client.id) inner join c_user u1 on c_reserve.userid = u1.id) inner join c_user u2 on c_reserve.execuserid = u2.id ${txt} ${lim}")
 	public List<Reserve> getMyreserved(@Param("txt")String where, @Param("lim")String limit);
+	
+	@Update("update c_reserve set date = #{date},type = #{type},statu = #{statu},execstatu = #{execstatu},result = #{result} where id=#{id}")
+	public int updatepool(Reserve r);
 	
 }

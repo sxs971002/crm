@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import entity.Revisit;
+import entity.User;
 import entity.Client;
 import service.RevisitService;
+import service.UserService;
 import service.ClientService;
 import utils.ReturnInfo;
 
@@ -21,6 +23,8 @@ public class RevisitController {
 	RevisitService revisitService;
 	@Autowired
 	ClientService clientService;
+	@Autowired
+	UserService userService;
 	
 	@RequestMapping("index")
 	public @ResponseBody ReturnInfo index(String txt,Integer page,Integer limit) {
@@ -61,6 +65,10 @@ public class RevisitController {
 	@RequestMapping("getClients")
 	public @ResponseBody List<Client> getClients() {
 		return clientService.getAll(null,null);
+	}
+	@RequestMapping("getExecuser")
+	public @ResponseBody List<User> getExecuser() {
+		return userService.getAll(null, null);
 	}
 	
 	

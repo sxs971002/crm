@@ -25,7 +25,8 @@
 <body>
 	<table id="demo" lay-filter="test"></table>
 	<script type="text/html" id="barDemo">
-<a class="layui-btn layui-btn-xs" lay-event="record">回访记录</a>
+<a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
+<a class="layui-btn layui-btn-xs" lay-event="record">我的回访</a>
 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="infos">客户详情</a>
 </script>
 	<script type="text/html" id="toolbarDemo">
@@ -38,8 +39,7 @@
 </script>
 
 	<script type="text/javascript">
-	
-	var tel = ${currentUser.tel};
+	var execuserid = ${currentUser.id};
 	
 		layui.use('table', function() {
 			var table = layui.table;
@@ -50,7 +50,7 @@
 				height : 462,
 				url : '/crm/Client_Pool/Myreserved' //数据接口
 				,
-				where:{tel:tel},
+				where:{execuserid:execuserid},
 				toolbar : '#toolbarDemo',
 				page : true //开启分页
 				,
@@ -100,7 +100,7 @@
 					fixed : 'right',
 					title : '操作',
 					toolbar : '#barDemo',
-					width : 200,
+					width : 250,
 					align : 'center'
 				}
 
@@ -122,10 +122,13 @@
 			table.on('tool(test)', function(obj) {
 				var data = obj.data;
 				if (obj.event === 'infos') { ///lay-event 属性
-					openFrame('./infos.jsp?clientid='+data.clientid,'客户详情',['900px', '100%']);
-				}else{
-					openFrame('./record.jsp?execuserid='+data.execuserid,'回访记录',['900px', '100%']);
+					openFrame('./infos.jsp?clientid='+data.clientid,'客户详情',['1000px', '100%']);
+				}else if(obj.event === 'record'){
+					openFrame('./record.jsp?clientid='+data.clientid+'&execuserid='+execuserid,'我的回访',['1000px', '100%']);
+				}else if(obj.event === 'edit'){
+					openFrame('./edit.jsp?id='+data.id,'修改',['1000px', '70%']);
 				}
+				
 			});
 
 			table.on('toolbar(test)', function(obj) {

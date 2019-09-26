@@ -70,4 +70,8 @@ public class ClientServiceImpl implements ClientService{
 		// TODO Auto-generated method stub
 		return clientDao.getMyexecuted(where,limit);
 	}
+	public int updates(String clientid, String userids, String usernames) {
+		// TODO Auto-generated method stub
+		return clientDao.updates(clientid,userids,usernames);
+	}
 }

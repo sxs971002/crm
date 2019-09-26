@@ -33,7 +33,6 @@
       <input type="text" name="txt" lay-verify="title"  autocomplete="off" placeholder="请输入名称" class="layui-input input">
     </div>
     <button class="layui-btn layui-btn-sm" lay-event="search">查询</button>
-    <button class="layui-btn layui-btn-sm" lay-event="appoints">批量分配</button>
   </div>
 </script>
 
@@ -163,7 +162,7 @@
 				var data = obj.data;
 				if (obj.event === 'infos') { ///lay-event 属性
 					openFrame('../My_reserved/infos.jsp?clientid='+data.id,'客户详情',['1000px', '95%']);
-				}else{
+				}else {
 					openFrame('./orders.jsp?clientid='+data.id,'合同详情',['1000px', '60%']);
 				}
 			});
@@ -172,8 +171,6 @@
 				if (obj.event === 'search') {
 					var txt = $(event.target).prev().find("input").val();
 					reload('demo',{txt : txt});
-				} else {
-					openFrame("./edit.jsp",'批量分配',['900px', '100%']);
 				}
 			});
 

@@ -26,7 +26,7 @@
 	<table id="demo" lay-filter="test"></table>
 	<script type="text/html" id="barDemo">
 <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+<a class="layui-btn layui-btn-xs" lay-event="addreserve">追加预约</a>
 </script>
 	<script type="text/html" id="toolbarDemo">
   <div class="layui-btn-container">
@@ -34,11 +34,12 @@
       <input type="text" name="txt" lay-verify="title"  autocomplete="off" placeholder="请输入名称" class="layui-input input">
     </div>
     <button class="layui-btn layui-btn-sm" lay-event="search">查询</button>
-    <button class="layui-btn layui-btn-sm" lay-event="add">新增</button>
+    <button class="layui-btn layui-btn-sm" lay-event="add">新增回访</button>
   </div>
 </script>
 
 	<script>
+	var clientid ="${param.clientid}";
 	var execuserid ="${param.execuserid}";
 		layui.use('table', function() {
 			var table = layui.table;
@@ -49,7 +50,10 @@
 				height : 462,
 				url : '/crm/Client_Pool/Myrevisit' //数据接口
 				,
-				where:{execuserid:execuserid},
+				where:{
+					clientid:clientid,
+					execuserid:execuserid
+				},
 				toolbar : '#toolbarDemo',
 				page : true //开启分页
 				,
@@ -62,6 +66,10 @@
 				}, {
 					field : 'clientname',
 					title : '客户名称',
+					width : 150
+				}, {
+					field : 'date',
+					title : '回访日期',
 					width : 150
 				},{
 					field : 'linkstatuname',
@@ -124,17 +132,10 @@
 			//test  是table的lay-filter="test" 属性
 			table.on('tool(test)', function(obj) {
 				var data = obj.data;
-				if (obj.event === 'del') { ///lay-event 属性
-					
-					myconfirm("刪除？",function(){
-						$.post("delete", {id : data.id}, 
-								function(json) {
-							reload('demo');
-							layer.close(layer.index);
-								}, "json");
-					});
+				if (obj.event === 'addreserve') { ///lay-event 属性
+					openFrame('/crm/Client_Pool/My_unexecuted/addreserve.jsp?execuserid='+execuserid+'&clientid='+clientid,'追加预约',['1000px', '90%']);
 				}else{
-					openFrame('/crm/Revisit/edit.jsp?id='+data.id,'编辑',['800px', '70%']);
+					openFrame('/crm/Revisit/edit.jsp?id='+data.id,'编辑',['1000px', '70%']);
 				}
 			});
 
@@ -143,7 +144,7 @@
 					var txt = $(event.target).prev().find("input").val();
 					reload('demo',{txt : txt});
 				} else {
-					openFrame("/crm/Revisit/edit.jsp",'新增',['800px', '70%']);
+					openFrame("./myrevisit.jsp?clientid="+clientid+'&execuserid='+execuserid,'新增回访',['1000px', '90%']);
 				}
 			});
 

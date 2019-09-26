@@ -1,0 +1,139 @@
+<!DOCTYPE html >
+<html>
+<head>
+<base href="/crm/X-admin/">
+<meta charset="UTF-8">
+<link href="lib/layui/css/layui.css" rel="stylesheet">
+<script type="text/javascript" src="lib/layui/layui.all.js"></script>
+<script src="js/jquery-2.2.4.min.js"></script>
+<script type="text/javascript" src="js/my.js"></script>
+<title></title>
+<style type="text/css">
+.input {
+	font-size: 16px; width : 200px;
+	height: 30px;
+	margin-top: -10px;
+	margin-right: 10px;
+	width: 200px;
+}
+
+.layui-form-select{width:200px;
+}
+</style>
+</head>
+<body>
+	<table id="demo" lay-filter="test"></table>
+	<script type="text/html" id="barDemo">
+<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+</script>
+	<script type="text/html" id="toolbarDemo">
+  <div class="layui-btn-container">
+    <button class="layui-btn layui-btn-sm" lay-event="search">选择文件</button>
+<button class="layui-btn layui-btn-sm" lay-event="add">上传提交</button>
+  </div>
+</script>
+	<script>
+	function upload(){
+	}
+	
+		layui.use(['table','upload'], function() {
+			var table = layui.table;
+			 var upload = layui.upload;
+			//第一个实例
+			table.render({
+				elem : '#demo',
+				height : 462,
+				id:"mytab",
+				url : '/crm/Xls/list' //数据接口
+				,
+				toolbar : '#toolbarDemo',
+				page : false //开启分页
+				,
+				cols : [ [ //表头
+					{type:"checkbox"},
+					{
+						field : 'id',
+						title : '序号',
+						width : 60
+					},
+				{
+					field : 'name',
+					title : '用户名',
+					width : 280
+				},
+				{
+					field : 'uploadstatusname',
+					title : '状态',
+					width : 280
+				}
+				,
+				{
+					field : 'uploadstatus',
+					title : '状态号',
+					width : 280,
+					hide:true
+				}
+
+				] ],
+				parseData : function(res) {
+					return {
+						"code" : res.code,
+						"msg" : res.msg,
+						"count" : res.count,
+						data : res.list
+					}
+				},  done: function (res, curr, count){
+					if(count>0){
+					for(var i=0;i<res.data.length;i++){
+						if(res.data[i].uploadstatus==1){
+							$($("[data-index]")[i]).css("background-color","#90EE90");
+							$($("[data-index]")[i]).find("[type=checkbox]").prop("disabled","disabled")
+						}
+					}
+					}
+				}
+			});
+			
+			 var uploadInst = upload.render({
+		            elem: '[lay-event=search]' //绑定元素
+		            ,url: '/crm/Xls/upload' //上传接口
+		            ,method: 'POST'
+		            ,accept: 'file'
+		            ,field:"file"
+		            ,size: 50
+		            ,done: function(res){//上传完毕回调
+		            	fresh("mytab");
+		            }
+		            ,error: function(){//请求异常回调
+		                layer.msg('网络异常，请稍后重试！');
+		            }
+		        });
+
+			//obj 行      obj.data 行数据    data.id 列
+			//test  是table的lay-filter="test" 属性
+			table.on('tool(test)', function(obj) {
+				
+			});
+
+			table.on('toolbar(test)', function(obj) {
+				var data = obj.data;
+				if (obj.event === 'add') {
+					var checkStatus = table.checkStatus("mytab");
+					var str="";
+					for(var i=0;i<checkStatus.data.length;i++){
+						str+=checkStatus.data[i].id+","	
+					}
+					if(checkStatus.data.length>0){
+						str=","+str;
+					}
+					$.post("/crm/Xls/save",{ids:str},function(json){
+						fresh("mytab");
+					},"json");
+				}
+			});
+
+		});
+		
+	</script>
+</body>
+</html>

@@ -29,7 +29,7 @@ public interface OrderDao {
 	@Select("select * from c_order where id=#{id}")
 	public Order getById(int id);
 
-	@Update("update c_order set clientid = #{clientid},createdate = #{createdate},performdate = #{performdate},orderdate = #{orderdate},startdate = #{startdate},enddate = #{enddate},infos = #{infos},createuserid = #{createuserid},files = #{files},performuserids = #{performuserids},performusernames = #{performusernames},performweight = #{performweight},statu = #{statu},totalprice = #{totalprice},comments = #{comments} where id=#{id}")
+	@Update("update c_order set clientid = #{clientid},performdate = #{performdate},orderdate = #{orderdate},startdate = #{startdate},enddate = #{enddate},infos = #{infos},createuserid = #{createuserid},files = #{files},performuserids = #{performuserids},performusernames = #{performusernames},performweight = #{performweight},statu = #{statu},totalprice = #{totalprice},comments = #{comments} where id=#{id}")
 	public int update(Order o);
 
 	@Select("select count(1) from (c_order inner join c_client on c_order.clientid = c_client.id) inner join c_user on c_order.createuserid = c_user.id ${txt}")

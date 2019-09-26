@@ -18,6 +18,11 @@
 .layui-input-inline {
     width: 200px;
 }
+.layui-table-tool-self {
+    position: absolute;
+    right: 17px;
+    top: 10px;
+}
 </style>
 
 <form class="layui-form" lay-filter="myform" >

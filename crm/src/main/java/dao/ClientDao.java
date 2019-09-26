@@ -29,7 +29,7 @@ public interface ClientDao {
 	@Select("select * from c_client where id=#{id}")
 	public Client getById(int id);
 
-	@Update("update c_client set name = #{name},sex = #{sex},tel = #{tel},qq = #{qq},email = #{email},address = #{address},infos = #{infos},linkstatu = #{linkstatu},clientstatu = #{clientstatu},purposestatu = #{purposestatu},assessstatu = #{assessstatu},execstatu = #{execstatu},statu = #{statu},clienttypeid = #{clienttypeid},userids = #{userids},usernames = #{usernames},createuserid = #{createuserid},createdate = #{createdate},srcid = #{srcid},count = #{count},comments = #{comments} where id=#{id}")
+	@Update("update c_client set name = #{name},sex = #{sex},tel = #{tel},qq = #{qq},email = #{email},address = #{address},infos = #{infos},linkstatu = #{linkstatu},clientstatu = #{clientstatu},purposestatu = #{purposestatu},assessstatu = #{assessstatu},execstatu = #{execstatu},statu = #{statu},clienttypeid = #{clienttypeid},userids = #{userids},usernames = #{usernames},createuserid = #{createuserid},srcid = #{srcid},count = #{count},comments = #{comments} where id=#{id}")
 	public int update(Client c);
 
 	@Select("select count(1) from ((c_client inner join c_client_type on c_client.clienttypeid = c_client_type.id) inner join c_user on c_client.createuserid = c_user.id)inner join c_src on c_client.srcid = c_src.id ${txt}")
@@ -50,6 +50,9 @@ public interface ClientDao {
 
 	@Select("select c_client.*,c_client_type.name clienttypename,c_user.name createusername,c_src.name srcname from ((c_client inner join c_client_type on c_client.clienttypeid = c_client_type.id) inner join c_user on c_client.createuserid = c_user.id)inner join c_src on c_client.srcid = c_src.id ${txt} ${lim}")
 	public List<Client> getMyexecuted(@Param("txt")String where, @Param("lim")String limit);
+
+	@Update("update c_client set userids = #{userids},usernames = #{usernames} where id = #{clientid}")
+	public int updates(@Param("clientid")String clientid, @Param("userids")String userids, @Param("usernames")String usernames);
 
 	
 }
