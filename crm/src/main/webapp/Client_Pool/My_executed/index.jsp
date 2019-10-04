@@ -19,6 +19,7 @@
 }
 .layui-form-select{width:200px;
 }
+
 </style>
 </head>
 <body>
@@ -46,7 +47,7 @@
 			//第一个实例
 			table.render({
 				elem : '#demo',
-				height : 462,
+				height : 610,
 				url : '/crm/Client_Pool/Myexecuted' //数据接口
 				,
 				where:{tel:tel},

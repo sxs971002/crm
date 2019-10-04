@@ -74,4 +74,8 @@ public class ClientServiceImpl implements ClientService{
 		// TODO Auto-generated method stub
 		return clientDao.updates(clientid,userids,usernames);
 	}
+	public int updateCount(int clientid) {
+		// TODO Auto-generated method stub
+		return clientDao.updateCount(clientid);
+	}
 }

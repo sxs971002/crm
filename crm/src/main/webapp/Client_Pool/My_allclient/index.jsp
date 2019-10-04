@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
+	<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
 <!DOCTYPE html >
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="../X-admin/lib/layui/css/layui.css" rel="stylesheet">
-<script type="text/javascript" src="../X-admin/lib/layui/layui.all.js"></script>
-<script src="../X-admin/js/jquery-2.2.4.min.js"></script>
-<script type="text/javascript" src="../X-admin/js/my.js"></script>
+<link href="/crm/X-admin/lib/layui/css/layui.css" rel="stylesheet">
+<script type="text/javascript" src="/crm/X-admin/lib/layui/layui.all.js"></script>
+<script src="/crm/X-admin/js/jquery-2.2.4.min.js"></script>
+<script type="text/javascript" src="/crm/X-admin/js/my.js"></script>
 <title></title>
 <style type="text/css">
 .input {
@@ -26,8 +27,9 @@
 	<table id="demo" lay-filter="test"></table>
 	<script type="text/html" id="barDemo">
 <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-<a class="layui-btn layui-btn-xs" lay-event="orderdetails">合同明细</a> 
-<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+<shiro:hasPermission name="delete">
+	<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</shiro:hasPermission>
 </script>
 	<script type="text/html" id="toolbarDemo">
   <div class="layui-btn-container">
@@ -35,7 +37,9 @@
       <input type="text" name="txt" lay-verify="title"  autocomplete="off" placeholder="请输入名称" class="layui-input input">
     </div>
     <button class="layui-btn layui-btn-sm" lay-event="search">查询</button>
+<shiro:hasPermission name="add">
     <button class="layui-btn layui-btn-sm" lay-event="add">新增</button>
+</shiro:hasPermission>
   </div>
 </script>
 
@@ -47,8 +51,8 @@
 			//第一个实例
 			table.render({
 				elem : '#demo',
-				height : 462,
-				url : '../Order/index' //数据接口
+				height : 610,
+				url : '/crm/Client/index' //数据接口
 				,
 				toolbar : '#toolbarDemo',
 				page : true //开启分页
@@ -57,59 +61,79 @@
 				{
 					field : 'id',
 					title : 'ID',
-					width : 150,
+					width : 100,
 					sort : true,
-				},{
-					field : 'clientname',
+				}, {
+					field : 'name',
 					title : '客户名称',
+					width : 100
+				},{
+					field : 'sexname',
+					title : '性别',
+					width : 80
+				},{
+					field : 'tel',
+					title : '联系方式',
 					width : 150
 				},{
-					field : 'createdate',
-					title : '创建日期',
+					field : 'qq',
+					title : 'QQ',
 					width : 150
 				},{
-					field : 'performdate',
-					title : '业绩日期',
-					width : 150
+					field : 'email',
+					title : '邮箱',
+					width : 200
 				},{
-					field : 'orderdate',
-					title : '合同日期',
-					width : 150
-				},{
-					field : 'startdate',
-					title : '开始日期',
-					width : 150
-				},{
-					field : 'enddate',
-					title : '截止日期',
+					field : 'address',
+					title : '地址',
 					width : 150
 				},{
 					field : 'infos',
 					title : '额外信息',
 					width : 150
 				},{
+					field : 'linkstatuname',
+					title : '电话状态',
+					width : 150
+				},{
+					field : 'clientstatuname',
+					title : '客户状态',
+					width : 150
+				},{
+					field : 'purposestatuname',
+					title : '意向状态',
+					width : 150
+				},{
+					field : 'assessstatuname',
+					title : '评估状态',
+					width : 150
+				},{
+					field : 'execstatuname',
+					title : '执行状态',
+					width : 150
+				}, {
+					field : 'clienttypename',
+					title : '客户类型',
+					width : 150
+				}, {
+					field : 'usernames',
+					title : '处理人们',
+					width : 150
+				}, {
 					field : 'createusername',
-					title : '创建人名称',
-					width : 150
-				},{
-					field : 'files',
-					title : '文件',
-					width : 150
-				},{
-					field : 'performuserids',
-					title : '业绩人员',
-					width : 150
-				},{
-					field : 'performweight',
-					title : '业绩比重',
+					title : '创建人',
 					width : 150
 				}, {
-					field : 'statu',
-					title : '状态',
+					field : 'createdate',
+					title : '创建时间',
 					width : 150
 				}, {
-					field : 'totalprice',
-					title : '总金额',
+					field : 'srcname',
+					title : '客户来源',
+					width : 150
+				}, {
+					field : 'count',
+					title : '回访次数',
 					width : 150
 				}, {
 					field : 'comments',
@@ -119,7 +143,7 @@
 					fixed : 'right',
 					title : '操作',
 					toolbar : '#barDemo',
-					width : 200,
+					width : 150,
 					align : 'center'
 				}
 
@@ -150,7 +174,7 @@
 								}, "json");
 					});
 				}else{
-					openFrame('../Order/edit.jsp?id='+data.id,'编辑',['1000px', '90%']);
+					openFrame('/crm/Client/edit.jsp?id='+data.id,'编辑',['1000px', '90%']);
 				}
 			});
 
@@ -159,9 +183,7 @@
 					var txt = $(event.target).prev().find("input").val();
 					reload('demo',{txt : txt});
 				} else if(obj.event === 'add'){
-					openFrame("../Order/edit.jsp",'新增',['1000px', '90%']);
-				} else if(obj.event === 'orderdetails'){
-					openFrame("./orderdetails.jsp",'合同明细',['1000px', '90%']);
+					openFrame("/crm/Client/edit.jsp",'新增',['1000px', '90%']);
 				}
 			});
 

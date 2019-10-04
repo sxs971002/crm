@@ -19,7 +19,10 @@
 
 
 <form class="layui-form" lay-filter="myform" action="/crm/Reserve/insert">
-
+<c:if test="${param.revisitid!=null}">
+	<input name="revisitid" type="hidden" class="layui-input" value="${param.revisitid}"></input>
+</c:if>
+  
   <input name="clientid" type="hidden" class="layui-input" value="${param.clientid}"></input>
   <input name="userid" type="hidden" class="layui-input" value="${param.execuserid}"></input>
   <input name="execuserid" type="hidden" class="layui-input" value="${param.execuserid}"></input>

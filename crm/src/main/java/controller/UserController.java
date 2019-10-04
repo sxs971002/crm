@@ -26,6 +26,13 @@ public class UserController {
 	@Autowired
 	WorkgroupService groupService;
 	
+	@RequestMapping("passedit")
+	public @ResponseBody String passedit(HttpSession s,String newpass) {
+		User u = (User) s.getAttribute("currentUser");
+		userService.passedit(newpass,u.getId());
+		return "{\"status\":1}";
+	}
+	
 	@RequestMapping("login")
 	public @ResponseBody String login(User u,HttpSession s) {
 		try {
@@ -39,6 +46,14 @@ public class UserController {
 		return "true";
 		
 	}
+	
+	@RequestMapping("findName")
+	@ResponseBody
+	public String findName(HttpSession s) {
+		User u = (User) s.getAttribute("currentUser");
+		return u.getName();
+	}
+	
 	
 	@RequestMapping("outlogin")
 	public String outlogin(HttpSession s) {
@@ -76,8 +91,7 @@ public class UserController {
 	public @ResponseBody List<Workgroup> getGroups() {
 		return groupService.getAll(null,null);
 	}
-	
-	
+
 	
 	@RequestMapping("delete")
 	public @ResponseBody String delete(int id) {

@@ -54,5 +54,8 @@ public interface ClientDao {
 	@Update("update c_client set userids = #{userids},usernames = #{usernames} where id = #{clientid}")
 	public int updates(@Param("clientid")String clientid, @Param("userids")String userids, @Param("usernames")String usernames);
 
+	@Update("update c_client set count = count + 1 where id = #{clientid}")
+	public int updateCount(int clientid);
+
 	
 }

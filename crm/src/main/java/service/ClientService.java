@@ -20,4 +20,5 @@ public interface ClientService {
 	public Client getAllById(int clientid);
 	public List<Client> getMyexecuted(String where, String lim);
 	public int updates(String clientid, String userids, String usernames);
+	public int updateCount(int clientid);
 }

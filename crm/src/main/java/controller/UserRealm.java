@@ -35,11 +35,19 @@ public class UserRealm extends AuthorizingRealm {
 		// 从数据库中查找该用户的角色和权限
 		SimpleAuthorizationInfo sainfo = new SimpleAuthorizationInfo();
 		Set<String> roles = new HashSet<String>();
-		roles.add("admin");
-		// roles.add("role1");
 		Set<String> permissions = new HashSet<String>();
-		permissions.add("add");
-		permissions.add("delete");
+		int power = userService.selectByTel(username).getPower();
+		if(power == 0) {
+			roles.add("user");
+		}else if(power == 1){
+			roles.add("groupleader");
+			permissions.add("add");
+			permissions.add("delete");
+		}else {
+			roles.add("admin");
+			permissions.add("add");
+			permissions.add("delete");
+		}
 		sainfo.setRoles(roles);
 		sainfo.setStringPermissions(permissions);
 		return sainfo;

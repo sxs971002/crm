@@ -46,4 +46,8 @@ public class UserServiceImpl implements UserService{
 		// TODO Auto-generated method stub
 		return userDao.selectByTel(tel);
 	}
+	public int passedit(String newpass, int id) {
+		// TODO Auto-generated method stub
+		return userDao.passedit(newpass,id);
+	}
 }

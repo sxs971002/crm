@@ -34,20 +34,38 @@
     <div class="layui-input-inline">
       <input type="text" name="txt" lay-verify="title"  autocomplete="off" placeholder="请输入名称" class="layui-input input">
     </div>
-    <button class="layui-btn layui-btn-sm" lay-event="search">查询</button>
+	<div class="layui-input-inline">
+      <input type="text" id="startdate" autocomplete="off" placeholder="开始日期:yyyy-MM-dd" class="layui-input input">
+    </div>
+	<div class="layui-input-inline">
+      <input type="text" id="enddate" autocomplete="off" placeholder="结束日期:yyyy-MM-dd" class="layui-input input">
+    </div>
+	<button class="layui-btn layui-btn-sm" lay-event="search">预约查询</button>
   </div>
 </script>
-
+    
+</div>
 	<script type="text/javascript">
 	var execuserid = ${currentUser.id};
-	
-		layui.use('table', function() {
+	layui.use('laydate', function() {
+		var laydate = layui.laydate;
+		  laydate.render({
+			    elem: '#startdate',
+			    trigger: 'click'
+			  });
+		  laydate.render({
+			    elem: '#enddate',
+			    trigger: 'click'
+			  });
+		})
+		layui.use(['table'], function() {
 			var table = layui.table;
-
+		  	  //常规用法
+		  
 			//第一个实例
 			table.render({
 				elem : '#demo',
-				height : 462,
+				height : 610,
 				url : '/crm/Client_Pool/Myreserved' //数据接口
 				,
 				where:{execuserid:execuserid},
@@ -110,11 +128,11 @@
 						"code" : res.code,
 						"msg" : res.msg,
 						"count" : res.count,
-						"data" : res.list
+						"data" :  res.list
 					}
 				}
+				  
 			});
-			
 			
 
 			//obj 行      obj.data 行数据    data.id 列
@@ -133,8 +151,10 @@
 
 			table.on('toolbar(test)', function(obj) {
 				if (obj.event === 'search') {
-					var txt = $(event.target).prev().find("input").val();
-					reload('demo',{txt : txt});
+					var startdate =$("#startdate").val();
+					var enddate =$("#enddate").val();
+					var txt = $("[name='txt']").val();
+					reload('demo',{txt:txt,startdate:startdate,enddate:enddate,execuserid:execuserid});
 				}
 			});
 

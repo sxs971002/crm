@@ -12,6 +12,7 @@
         <!-- <link rel="stylesheet" href="./css/theme5.css"> -->
         <script src="./lib/layui/layui.js" charset="utf-8"></script>
         <script type="text/javascript" src="./js/xadmin.js"></script>
+        <script src="../X-admin/js/jquery-2.2.4.min.js"></script>
         <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
         <!--[if lt IE 9]>
           <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -33,13 +34,15 @@
             
             <ul class="layui-nav right" lay-filter="">
                 <li class="layui-nav-item">
-                    <a href="javascript:;">admin</a>
+                    <a href="javascript:;" id="admin">未登录</a>
                     <dl class="layui-nav-child">
                         <!-- 二级菜单 -->
                         <dd>
-                            <a onclick="xadmin.open('个人信息','http://www.baidu.com')">个人信息</a></dd>
+                            <a onclick="xadmin.open('个人信息','../User/info.jsp',700,350)">个人信息</a></dd>
                         <dd>
-                            <a onclick="xadmin.open('切换帐号','http://www.baidu.com')">切换帐号</a></dd>
+                            <a onclick="xadmin.open('修改密码','../User/passedit.jsp',700,350)">修改密码</a></dd>
+                        <dd>
+                            <a href="./login.html">切换帐号</a></dd>
                         <dd>
                             <a href="../User/outlogin">退出</a></dd>
                     </dl>
@@ -54,13 +57,19 @@
         <div class="left-nav">
             <div id="side-nav">
                 <ul id="nav">
-                    <li>
+                    <li id="part1">
                         <a href="javascript:;">
                             <i class="iconfont left-nav-li" lay-tips="客戶池管理">&#xe6b8;</i>
                             <cite>客戶池管理</cite>
                         <i class="iconfont nav_right">&#xe697;</i></a>
                         <ul class="sub-menu">
-                            <li>
+                        	<li id="part11" >
+                                	<a onclick="xadmin.add_tab('全部客户','../Client_Pool/My_allclient/index.jsp')">
+			                        <i class="iconfont">&#xe70b;</i>
+			                        <cite>客户列表</cite></a>
+			                </li>
+			                
+                            <li id="part12" >
                             	<a href="javascript:;">
                                 	<i class="iconfont left-nav-li" lay-tips="公共客戶池管理">&#xe70b;</i>
                             		<cite>公共客戶池管理</cite>
@@ -74,7 +83,7 @@
 			                        </ul>
 			                </li>
 			                
-			                <li>       
+			                <li id="part13">       
 			                	<a href="javascript:;">
 			                    	<i class="iconfont left-nav-li" lay-tips="私人客戶池管理">&#xe70b;</i>
                             		<cite>私人客戶池管理</cite>
@@ -95,51 +104,52 @@
 			                                    <i class="iconfont">&#xe6a7;</i>
 			                                    <cite>已完成客户管理</cite></a>
 			                            </li>
+			                            
 			                        </ul>
                             </li>
                          </ul>
                     </li>
-                            <li>
+                            <li id="part2">
                                 <a onclick="xadmin.add_tab('工作组管理','../Workgroup/index.jsp',true)">
                                     <i class="iconfont">&#xe6b3;</i>
                                     <cite>工作组管理</cite></a>
                             </li>
-                            <li>
+                            <li id="part3">
                                 <a onclick="xadmin.add_tab('用户管理','../User/index.jsp',true)">
                                     <i class="iconfont">&#xe726;</i>
                                     <cite>用户管理</cite></a>
                             </li>
-                            <li>
+                            <li id="part4">
                                 <a onclick="xadmin.add_tab('客户管理','../Client/index.jsp')">
                                     <i class="iconfont">&#xe6b8;</i>
                                     <cite>客户管理</cite></a>
                             </li>
-                            <li>
+                            <li id="part5">
                                 <a onclick="xadmin.add_tab('客户类型管理','../Client_type/index.jsp')">
                                     <i class="iconfont">&#xe6f7;</i>
                                     <cite>客户类型管理</cite></a>
                             </li>
-                            <li>
+                            <li id="part6">
                                 <a onclick="xadmin.add_tab('产品管理','../Product/index.jsp')">
                                     <i class="iconfont">&#xe6db;</i>
                                     <cite>产品管理</cite></a>
                             </li>
-                            <li>
+                            <li id="part7">
                                 <a onclick="xadmin.add_tab('合同管理','../Order/index.jsp')">
                                     <i class="iconfont">&#xe6a2;</i>
                                     <cite>合同管理</cite></a>
                             </li>
-                            <li>
+                            <li id="part8">
                                 <a onclick="xadmin.add_tab('合同明细管理','../Orderdetails/index.jsp')">
                                     <i class="iconfont">&#xe6f7;</i>
                                     <cite>合同明细管理</cite></a>
                             </li>
-                            <li>
+                            <li id="part9">
                                 <a onclick="xadmin.add_tab('回访管理','../Revisit/index.jsp')">
                                     <i class="iconfont">&#xe6e3;</i>
                                     <cite>回访管理</cite></a>
                             </li>
-                            <li>
+                            <li id="part10">
                                 <a onclick="xadmin.add_tab('预约管理','../Reserve/index.jsp')">
                                     <i class="iconfont">&#xe6c7;</i>
                                     <cite>预约管理</cite></a>
@@ -194,7 +204,7 @@
                 </div>
                 <div class="layui-tab-content">
                     <div class="layui-tab-item layui-show">
-                        <iframe src='./welcome.html' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+                        <iframe src='../Client/index.jsp' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
                     </div>
                 </div>
                 <div id="tab_show"></div>
@@ -204,13 +214,41 @@
         <style id="theme_style"></style>
         <!-- 右侧主体结束 -->
         <!-- 中部结束 -->
-        <script>//百度统计可去掉
-            var _hmt = _hmt || []; (function() {
-                var hm = document.createElement("script");
-                hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-                var s = document.getElementsByTagName("script")[0];
-                s.parentNode.insertBefore(hm, s);
-            })();</script>
+        <script type="text/javascript">
+        
+        $("#admin").text(name);
+        	$(function(){
+        		$.ajax({
+        			url:"/crm/shiro/viewRole",
+        			type:"post",
+        			success:function(result){
+        				alert(result);
+        				if(result=="admin"){
+        					$("#part1").css("display","none");
+        				}else if(result=="groupleader"){
+        					$("#part3").css("display","none");
+        				}else{
+        					$("#part12").css("display","none");
+        					$("#part3").css("display","none");
+        					$("#part4").css("display","none");
+        					$("#part9").css("display","none");
+        					$("#part10").css("display","none");
+        				}
+        			}
+        		});
+        		
+        		$.ajax({
+        			url:"/crm/User/findName",
+        			type:"post",
+        			success:function(result){
+        				$("#admin").text(result);
+        			}
+        		});
+        		
+        	});
+        	
+        	
+        </script>
     </body>
 
 </html>

@@ -25,7 +25,7 @@ public interface UserDao {
 	@Delete("delete from c_user where id=#{id}")
 	public int delete(int id);
 
-	@Select("select * from c_user where id=#{id}")
+	@Select("select c_user.*,c_workgroup.name groupname from c_user inner join c_workgroup on c_user.groupid = c_workgroup.id where c_user.id=#{id}")
 	public User getById(Integer id);
 
 	@Update("update c_user set name = #{name},pass = #{pass},tel=#{tel},sex = #{sex},statu = #{statu},power = #{power},groupid = #{groupid} where id =#{id}")
@@ -36,5 +36,8 @@ public interface UserDao {
 
 	@Select("select * from c_user where tel=#{tel}")
 	public User selectByTel(String tel);
+
+	@Update("update c_user set pass = #{pass} where id = #{id}")
+	public int passedit(@Param("pass")String newpass, @Param("id")int id);
 	
 }

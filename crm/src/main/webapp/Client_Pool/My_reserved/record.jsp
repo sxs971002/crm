@@ -133,7 +133,7 @@
 			table.on('tool(test)', function(obj) {
 				var data = obj.data;
 				if (obj.event === 'addreserve') { ///lay-event 属性
-					openFrame('/crm/Client_Pool/My_unexecuted/addreserve.jsp?execuserid='+execuserid+'&clientid='+clientid,'追加预约',['1000px', '90%']);
+					openFrame('/crm/Client_Pool/My_unexecuted/addreserve.jsp?execuserid='+execuserid+'&clientid='+clientid+'&revisitid='+data.id,'追加预约',['1000px', '90%']);
 				}else{
 					openFrame('/crm/Revisit/edit.jsp?id='+data.id,'编辑',['1000px', '70%']);
 				}

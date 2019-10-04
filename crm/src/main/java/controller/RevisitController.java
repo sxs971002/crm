@@ -80,8 +80,9 @@ public class RevisitController {
 	
 	
 	@RequestMapping("insert")
-	public @ResponseBody String insert(Revisit u) {
-		revisitService.insert(u);
+	public @ResponseBody String insert(Revisit r) {
+		revisitService.insert(r);
+		clientService.updateCount(r.getClientid());
 		return "{\"status\":1}";
 	}
 	
