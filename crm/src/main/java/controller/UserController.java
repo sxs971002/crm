@@ -1,7 +1,11 @@
 package controller;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.SecurityUtils;
@@ -15,6 +19,8 @@ import entity.User;
 import entity.Workgroup;
 import service.UserService;
 import service.WorkgroupService;
+import utils.CodeUtil;
+import utils.MD5Util;
 import utils.ReturnInfo;
 
 @Controller
@@ -29,14 +35,36 @@ public class UserController {
 	@RequestMapping("passedit")
 	public @ResponseBody String passedit(HttpSession s,String newpass) {
 		User u = (User) s.getAttribute("currentUser");
-		userService.passedit(newpass,u.getId());
+		String newpassByMD5 = MD5Util.MD5(newpass);
+		userService.passedit(newpassByMD5,u.getId());
 		return "{\"status\":1}";
 	}
 	
+	@RequestMapping("getVerifyCode")
+    public void getVerifyCode(HttpServletResponse response, HttpSession s) {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        CodeUtil codeUtil = new CodeUtil();
+        String verifyCodeValue = codeUtil.drawImg(output);
+        System.out.println(verifyCodeValue);
+        s.setAttribute("verifyCode", verifyCodeValue);
+        try {
+            ServletOutputStream out = response.getOutputStream();
+            output.writeTo(out);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+	
 	@RequestMapping("login")
-	public @ResponseBody String login(User u,HttpSession s) {
+	public @ResponseBody String login(User u,String code,HttpSession s) {
 		try {
-		SecurityUtils.getSubject().login(new UsernamePasswordToken(u.getTel(), u.getPass()));
+		String codeValue = (String) s.getAttribute("verifyCode");
+		if(!code.equalsIgnoreCase(codeValue)) {
+			return "error";
+		}
+		String passwordByMd5 = MD5Util.MD5(u.getPass());
+		System.out.println(passwordByMd5);
+		SecurityUtils.getSubject().login(new UsernamePasswordToken(u.getTel(), passwordByMd5));
 		}catch (Exception e) {
 			return "false";
 		}
@@ -102,6 +130,7 @@ public class UserController {
 	
 	@RequestMapping("insert")
 	public @ResponseBody String insert(User u) {
+		u.setPass(MD5Util.MD5(u.getPass()));
 		userService.insert(u);
 		return "{\"status\":1}";
 	}
@@ -112,6 +141,7 @@ public class UserController {
 	}
 	@RequestMapping("update")
 	public @ResponseBody String update(User u) {
+		u.setPass(MD5Util.MD5(u.getPass()));
 		userService.update(u);
 		return "{\"status\":1}";
 	}

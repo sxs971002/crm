@@ -32,6 +32,12 @@
 			<input name="pass" lay-verify="required" placeholder="密码"
 				type="password" class="layui-input">
 			<hr class="hr15">
+			<div class="layui-form-item">
+				<input name="code" lay-verify="required" placeholder="验证码"
+					type="text" class="layui-input-inline" style="width: 208px;margin-right: 20px; ">
+				<img src="/crm/User/getVerifyCode" width="110" height="50" id="Img" onclick="changeCode()">
+			</div>
+			<hr class="hr15">
 			<input value="登录" lay-submit lay-filter="login" style="width: 100%;"
 				type="submit">
 			<hr class="hr20">
@@ -39,6 +45,17 @@
 	</div>
 
 	<script>
+	// 获取当前时间
+    function genTimestamp() {
+        var time = new Date();
+        return time.getTime();
+    }
+
+    // 点击获取验证码
+    function changeCode() {
+        $("#Img").attr("src", "/crm/User/getVerifyCode?t=" + genTimestamp());
+    }
+
 		$(function() {
 			layui.use([ 'form', 'layer' ], function() {
 				var form = layui.form;
@@ -53,18 +70,25 @@
 				form.on('submit(login)', function(data) {
 					var tel = $('[name=tel]').val();
 					var pass = $('[name=pass]').val();
+					var code = $('[name=code]').val(); 
 					$.ajax({
 						type : "post",
 						url : "../User/login",//请求地址
 						data : {
 							"tel" : tel,
-							"pass" : pass
+							"pass" : pass,
+							"code" : code
 						},//向后台提交的参数
 						success : function(json) {//后台返回值
 							alert(json);
 							if (json == "true") {
 								location.href = 'index.html';
-							} else {
+							} else if(json == "error"){
+								layer.msg("验证码错误", {
+									icon : 7
+								});
+								
+							}else {
 								layer.msg("用户名或密码不正确", {
 									icon : 7
 								});
